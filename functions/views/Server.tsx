@@ -1,15 +1,22 @@
 import React from "react";
-import { StaticRouter } from "react-router";
+import ReactDOM from "react-dom";
+//import { StaticRouter } from "react-router";
 import App from "./App";
 
-export default class ServerApp extends React.Component {
-  render() {
-    return (
-      // @ts-ignore
-      <StaticRouter location={this.props.url} context={this.props.context}>
-        // @ts-ignore
-        <App state={this.props.initialState} />
-      </StaticRouter>
-    );
-  }
-}
+// type $Props = {
+//   url: string;
+//   context: any;
+//   initialState: any;
+// };
+
+// export default class ServerApp extends React.Component<$Props> {
+//   render() {
+//     return (
+//       <StaticRouter location={this.props.url} context={this.props.context}>
+//         <App state={this.props.initialState} />
+//       </StaticRouter>
+//     );
+//   }
+// }
+
+ReactDOM.render(<App />, document.getElementById("root"));

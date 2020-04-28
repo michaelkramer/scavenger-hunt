@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      { "targets": { "node": "8", "esmodules": true }, "modules": "amd" }
+    ],
+    "@babel/preset-react",
+    ["@babel/preset-typescript", { "allExtensions": true, "isTSX": true }]
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ]
+}

@@ -12,8 +12,7 @@ export function routes(app: Express) {
 
 function handler(req: Request, res: Response) {
   const { query } = req;
-  console.log("==>testNice mn");
-  return RenderReact("", res, {});
+  return RenderReact("", res, { name: "john" });
 }
 
 function testHandler(req: Request, res: Response) {

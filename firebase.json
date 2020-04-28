@@ -16,6 +16,17 @@
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
+      {
+        "source": "/views{,/**/*}",
+
+        "dynamicLinks": true
+      },
+      {
+        "source": "/css{,/**/*}",
+
+        "dynamicLinks": true
+      },
+      { "source": "server.bundle.js", "destination": "/server.bundle.js" },
       { "source": "**", "function": "start" },
       {
         "source": "**",
