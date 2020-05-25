@@ -1,6 +1,6 @@
-import * as dotenv from "dotenv";
+const dotenv = require("dotenv");
 import * as path from "path";
-
+import assign from "lodash/assign";
 import * as pkg from "../package.json";
 import {
   getOsEnv,
@@ -12,24 +12,77 @@ import {
   toNumber,
 } from "./lib/env";
 
-/**
- * Load .env file or for tests the .env.test file.
- */
-dotenv.config({
-  path: path.join(
-    process.cwd(),
-    `.env${process.env.NODE_ENV === "test" ? ".test" : ""}`
-  ),
-});
+type $ENV = {
+  node: string;
+  isProduction: boolean;
+  isTest: boolean;
+  isDevelopment: boolean;
+  KNEX_DEBUG: string;
+  app: {
+    name: string;
+    version: string;
+    description: string;
+    host: string;
+    schema: string;
+    routePrefix: string;
+    port: string | number | boolean;
+    banner: boolean;
+    dirs: {
+      controllers: string;
+      middlewares: string;
+    };
+  };
+  log: {
+    level: string;
+    json: boolean;
+    output: string;
+  };
+  db: { connection: string };
+  monitor: {
+    enabled: boolean;
+    route: string;
+    username: string;
+    password: string;
+  };
+  oauth: {
+    facebook: {
+      clientId: string;
+      clientSecret: string;
+    };
+    goodreads: {
+      appKey: string;
+      appSecret: string;
+    };
+  };
+};
 
 /**
  * Environment variables
  */
-export const env = {
+//let env: $ENV;
+
+//function initEnv(): $ENV {
+/**
+ * Load .env file or for tests the .env.test file.
+ */
+const envPath = path.join(
+  process.cwd(),
+  `.env${process.env.NODE_ENV === "test" ? ".test" : ""}`
+);
+console.log(envPath);
+dotenv.config({
+  path: envPath,
+});
+
+//console.log(result.parsed);
+
+console.log(process.env.KNEX_DEBUG);
+const env = {
   node: process.env.NODE_ENV || "development",
   isProduction: process.env.NODE_ENV === "production",
   isTest: process.env.NODE_ENV === "test",
   isDevelopment: process.env.NODE_ENV === "development",
+  KNEX_DEBUG: getOsEnv("KNEX_DEBUG"),
   app: {
     name: getOsEnv("APP_NAME"),
     version: (pkg as any).version,
@@ -54,14 +107,7 @@ export const env = {
     output: getOsEnv("LOG_OUTPUT"),
   },
   db: {
-    type: getOsEnv("TYPEORM_CONNECTION"),
-    host: getOsEnvOptional("TYPEORM_HOST"),
-    port: toNumber(getOsEnvOptional("TYPEORM_PORT")),
-    username: getOsEnvOptional("TYPEORM_USERNAME"),
-    password: getOsEnvOptional("TYPEORM_PASSWORD"),
-    database: getOsEnv("TYPEORM_DATABASE"),
-    synchronize: toBool(getOsEnvOptional("TYPEORM_SYNCHRONIZE")),
-    logging: getOsEnv("TYPEORM_LOGGING"),
+    connection: getOsEnv("DATABASE_URL"),
   },
   monitor: {
     enabled: toBool(getOsEnv("MONITOR_ENABLED")),
@@ -80,3 +126,5 @@ export const env = {
     },
   },
 };
+
+export { env };
