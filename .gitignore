@@ -1,8 +1,18 @@
-## Compiled JavaScript files
-**/*.js
-**/*.js.map
-
 # Typescript v1 declaration files
 typings/
 
+# Node files #
 node_modules/
+npm-debug.log
+yarn-error.log
+.env
+
+# OS generated files #
+.DS_Store
+Thumbs.db
+.tmp/
+
+# Dist #
+dist/
+build/
+tsconfig.build.json
