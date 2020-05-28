@@ -7,6 +7,7 @@ import { env } from "../env";
 const monitorLoader: MicroframeworkLoader = (
   settings: MicroframeworkSettings | undefined
 ) => {
+  console.log("monitor", env.monitor.enabled);
   if (settings && env.monitor.enabled) {
     const expressApp = settings.getData("express_app");
     expressApp.use(monitor());

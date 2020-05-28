@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  db:
+    image: mdillon/postgis:11
+    ports:
+      - "5550:5432"
+    environment:
+      POSTGRES_USER: db
+      POSTGRES_PASSWORD: db
+      POSTGRES_DB: db
+      PGDATA: /data
+    volumes:
+      - ~/db/example/pg:/data
+    restart: always
+
+  # db-webPortal:
+  #     container_name: db-webPortal
+  #     image: sosedoff/pgweb
+  #     ports:
+  #         - "8081:8081"
+  #     environment:
+  #         - DATABASE_URL=postgres://db:db@127.0.0.1:5550/db
+
+  # web:
+  #     build: .
+  #     ports:
+  #         - "5000:5000"
+  redis:
+    image: "redis:alpine"

@@ -17,7 +17,8 @@ module.exports = {
       // },
       script: series(
         "nps banner.serve",
-        `nodemon --watch ${runFast("./src/index.ts")}`,
+        "webpack",
+        `nodemon ./src/index.ts web`,
         // "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch' 'nodemon --watch src --watch .env'",
       ),
       description:

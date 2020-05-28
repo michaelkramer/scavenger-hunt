@@ -1,18 +1,14 @@
 import { bootstrapMicroframework } from "microframework";
-import { Logger } from "./lib/logger";
+import _ from "lodash";
+import Backpack from "@michaelkramer/backpack";
 import { banner } from "./lib/banner";
-
 import expressLoader from "./loaders/expressLoader";
 import expressSessionLoader from "./loaders/expressSessionLoader";
 import monitorLoader from "./loaders/monitorLoader";
 import publicLoader from "./loaders/publicLoader";
 import routeLoader from "./loaders/routeLoader";
 
-import _ from "lodash";
-
-const log = new Logger(__filename);
-console.log("fileName: ", __filename);
-
+const log = new Backpack.Logger(__filename);
 //let expressApp;
 
 export default function appServer() {
