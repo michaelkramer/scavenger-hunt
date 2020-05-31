@@ -24,8 +24,15 @@ module.exports = {
       description:
         "Serves the current app and watches for changes to restart it",
     },
+    developing: {
+      script: series(
+        "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch --info-verbosity verbose' 'nodemon ./src/index.ts web'")
+    },
     webpack: {
-      script: series("nps banner.webpack", "webpack --watch"),
+      script: series("nps banner.webpack",
+      `concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch --info-verbosity verbose' '${runFast("./src/index.ts web")}'`
+      )
+      //, "webpack --watch --info-verbosity verbose"),
     },
     build: {
       script: series("nps banner.build",'nps transpile')

@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: "development",
@@ -7,7 +8,8 @@ module.exports = {
   entry: { main: path.resolve(__dirname, "src/views/index.tsx") },
   output: {
     path: path.resolve(__dirname, "dist/public"),
-    filename: "assets/js/[name].[contenthash:8].js",
+    filename: "assets/js/[name].js",//.[contenthash:8]
+    //chunkFilename: 'assets/js/[name].bundle.js',
     publicPath: "/",
   },
   resolve: {
@@ -42,6 +44,11 @@ module.exports = {
       template: "./public/index.html",
       //filename: "./index.html",
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: './public/*[.png|.ico]', to: "../" },
+      ],
+    }),
   ],
   bail: true,
   // Some libraries import Node modules but don't use them in the browser.
@@ -53,6 +60,7 @@ module.exports = {
     tls: "empty",
     child_process: "empty",
   },
+
   watchOptions: {
     poll: 1000,
     ignored: ["node_modules"],

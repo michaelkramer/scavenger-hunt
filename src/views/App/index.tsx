@@ -1,47 +1,17 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-// import { Layout } from "antd";
-import Style from "../theme/Style";
-// import Header from "views/layout/Header";
-// import Footer from "views/layout/Footer";
-// import UserList from "views/UserList";
-// import "antd/dist/antd.css";
+import { StyleProvider } from "../theme/Style";
+import UserProvider from "../contexts/UserProvider";
+import AppLayout from "../layout";
+import "antd/dist/antd.css";
 
-const App = ({ classes }) => {
-  //const { Sider, Content } = Layout;
-
+const App = () => {
   return (
-    <div>Something</div>
-    // <Layout>
-    //   <Layout.Header>
-    //     <Header />
-    //   </Layout.Header>
-
-    //   <Layout>
-    //     <Content className={classes.container}>
-    //       Some cool text
-    //       <UserList />
-    //     </Content>
-    //     <Sider>Sider</Sider>
-    //   </Layout>
-    //   <Layout.Footer>
-    //     <Footer />
-    //   </Layout.Footer>
-    // </Layout>
+    <StyleProvider>
+      <UserProvider>
+        <AppLayout></AppLayout>
+      </UserProvider>
+    </StyleProvider>
   );
 };
 
-App.propTypes = {
-  classes: PropTypes.any,
-};
-
-const styles = (_theme) => ({
-  layout: {
-    color: "white",
-  },
-  container: {
-    color: "#f00",
-    padding: "20px",
-  },
-});
-export default Style(styles)(App);
+export default App;

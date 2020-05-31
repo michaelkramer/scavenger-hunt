@@ -2,12 +2,14 @@ import { bootstrapMicroframework } from "microframework";
 import _ from "lodash";
 import Backpack from "@michaelkramer/backpack";
 import { banner } from "./lib/banner";
-import expressLoader from "./loaders/expressLoader";
-import expressSessionLoader from "./loaders/expressSessionLoader";
-import monitorLoader from "./loaders/monitorLoader";
-import publicLoader from "./loaders/publicLoader";
-import routeLoader from "./loaders/routeLoader";
-
+import expressLoader from "./loaders/express-loader";
+import expressSessionLoader from "./loaders/express-session-loader";
+import monitorLoader from "./loaders/monitor-loader";
+import publicLoader from "./loaders/public-loader";
+import routeLoader from "./loaders/route-loader";
+import passportLoader from "./loaders/passport-loader";
+import bodyParserLoader from "./loaders/body-parser-loader";
+import { env } from "./env";
 const log = new Backpack.Logger(__filename);
 //let expressApp;
 
@@ -25,7 +27,8 @@ export default function appServer() {
       // typeormLoader,
       // expressAPILoader,
       expressSessionLoader,
-      // passportLoader,
+      bodyParserLoader,
+      passportLoader,
       // //swaggerLoader,
       monitorLoader,
       routeLoader,

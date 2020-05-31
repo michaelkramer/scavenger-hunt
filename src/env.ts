@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 import * as path from "path";
+import fs from "fs";
 import assign from "lodash/assign";
 import * as pkg from "../package.json";
 import {
@@ -74,9 +75,14 @@ dotenv.config({
   path: envPath,
 });
 
+const html = fs.readFileSync(
+  path.join(__dirname, "../dist/public/index.html"),
+  "utf8"
+);
+
 //console.log(result.parsed);
 
-console.log(process.env.KNEX_DEBUG);
+//console.log(process.env.KNEX_DEBUG);
 const env = {
   node: process.env.NODE_ENV || "development",
   isProduction: process.env.NODE_ENV === "production",
@@ -125,6 +131,7 @@ const env = {
       appSecret: getOsEnv("GOODREADS_SECRET"),
     },
   },
+  html,
 };
 
 export { env };
