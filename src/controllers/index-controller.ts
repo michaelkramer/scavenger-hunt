@@ -1,4 +1,5 @@
 import Backpack from "@michaelkramer/backpack";
+import UserOauth from "../models/User-Oauth";
 import { env } from "../env";
 const log = new Backpack.Logger(__filename);
 
@@ -33,7 +34,11 @@ export function routes(app: any) {
 }
 async function handler(req: any, res: any) {
   //const { query } = req;
-  log.info(`route in ${env.app.name} end`);
-  console.log(req.user);
-  return res.send({ user: req.user });
+  const userOauth = await UserOauth.query()
+    .findOne({
+      oauthProvider: "facebook",
+      providerId: "10223137320487636",
+    })
+    .withGraphJoined("user");
+  return res.send({ userOauth });
 }

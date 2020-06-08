@@ -49,10 +49,8 @@ export const themeConfig = {
       default: "#fff",
       paper: "#fff",
     },
-    common: {
-      black: "#000",
-      white: "#fff",
-    },
+    black: "#000",
+    white: "#fff",
     contrastThreshold: 3,
     divider: "rgba(0, 0, 0, 0.12)",
     error: {

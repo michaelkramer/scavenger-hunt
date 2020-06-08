@@ -21,6 +21,24 @@ const routeLoader: MicroframeworkLoader = (
         }
       });
     });
+    expressApp.get("*", (req, res, next) => {
+      const routePaths = [
+        "/api",
+        "/assets",
+        "/favicon",
+        "/android-chrome",
+        "/apple-touch",
+        "/auth",
+      ];
+
+      if (!_.find(routePaths, (route) => req.path.includes(route))) {
+        const html = env.html.replace("//HERE//", `page='${req.path}';`);
+        return res.send(html);
+      }
+      return next();
+    });
+    // Landing page
+
     // [END routes]
   }
 };

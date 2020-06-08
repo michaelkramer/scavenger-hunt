@@ -1,7 +1,7 @@
 import { env } from "../env";
-//import { Logger } from "@michaelkramer/backpack";
+import { $LoggerInterface } from "@michaelkramer/backpack";
 
-export function banner(log): void {
+export function banner(log: $LoggerInterface): void {
   if (env.app.banner) {
     const route = () => `${env.app.schema}://${env.app.host}:${env.app.port}`;
     log.info(``);
