@@ -32,6 +32,7 @@ module.exports = {
       ],
       //"@typescript-eslint/no-unused-vars": [1],
       //"prettier/prettier": 0,
+      "react/prop-types": [1],
       "quotes": [
         "error",
         "double",

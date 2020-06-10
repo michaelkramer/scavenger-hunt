@@ -1,7 +1,8 @@
 import React from "react";
 import { Styles } from "../theme/Style";
+import { $ReactBaseProps } from "../../types";
 
-const PageNotFound = ({ classes }) => {
+const PageNotFound = ({ classes }: $ReactBaseProps) => {
   return <div>Page not found</div>;
 };
 

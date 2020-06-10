@@ -9,6 +9,10 @@ import React, {
 import isEmpty from "lodash/isEmpty";
 import ApiRequest from "../common/apiRequest";
 
+interface $Props {
+  children: any;
+}
+
 const context = createContext(null);
 
 const useEffectOnce = (cb) => {
@@ -26,7 +30,7 @@ const initialState = {
   user: {},
 };
 
-const UserProvider = ({ children }) => {
+const UserProvider = ({ children }: $Props) => {
   const [user, setUser] = useState({});
   //const [state, dispatch] = useReducer(reducer, initialState);
   // const [fetchState, makeRequest] = useApiRequest(FETCHING, "/api/user", {
@@ -61,6 +65,26 @@ const UserProvider = ({ children }) => {
     }
   }
 
+  async function updateUser(user) {
+    const response = await ApiRequest("/api/user", {
+      verb: "put",
+      params: user,
+    });
+    if (response.data) {
+      setUser(response.data);
+    }
+  }
+
+  async function putPictureData() {
+    const response = await ApiRequest("/api/user/picture", {
+      verb: "put",
+      params: { provider: "facebook" },
+    });
+    if (response.data) {
+      setUser(response.data);
+    }
+  }
+
   useEffectOnce(() => {
     //dispatch({ type: "reset" });
     //fetchData();
@@ -70,7 +94,9 @@ const UserProvider = ({ children }) => {
     fetchData();
   }, []);
   return (
-    <context.Provider value={{ user, logout }}>{children}</context.Provider>
+    <context.Provider value={{ user, logout, putPictureData, updateUser }}>
+      {children}
+    </context.Provider>
   );
 };
 

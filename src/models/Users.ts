@@ -12,6 +12,7 @@ export default class Users extends Model {
   password!: string;
   createdAt!: Date;
   updatedAt?: Date;
+  picture?: { url: string; shape: "square" | "circle" };
 
   userOauths?: UserOauth[];
 
@@ -24,13 +25,13 @@ export default class Users extends Model {
 
     properties: {
       id: { type: "integer" },
-      parentId: { type: ["integer", "null"] },
       firstName: { type: "string" },
       lastName: { type: "string" },
       email: { type: "string" },
       password: { type: "string" },
       createdAt: { type: "string" },
       updatedAt: { type: ["string", "null"] },
+      picture: { type: ["object", "null"] },
     },
   };
 

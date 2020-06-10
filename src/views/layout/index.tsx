@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { useRoutes } from "hookrouter";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -47,7 +47,10 @@ const styles = (_theme) => ({
     color: "#f00",
     backgroundColor: _theme.palette.white,
     paddingTop: "24px",
+    paddingBottom: "50px",
   },
-  footer: {},
+  footer: {
+    marginTop: "50px",
+  },
 });
 export default Styles(styles)(AppLayout);

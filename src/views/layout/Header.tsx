@@ -3,7 +3,7 @@ import { A } from "hookrouter";
 import { random, isEmpty } from "lodash";
 
 import PropTypes from "prop-types";
-import { Avatar, Row, Col, Button } from "antd";
+import { Avatar, Row, Col, Button, Menu, Dropdown } from "antd";
 import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
 import { Styles } from "../theme/Style";
 import Navigation from "../components/Navigation";
@@ -13,6 +13,39 @@ const Header = ({ classes }) => {
   const { user, logout } = useContext(UserProvider.context);
   const ColorList = ["#f56a00", "#7265e6", "#ffbf00", "#00a2ae"];
   const text = isEmpty(user) ? "No User" : JSON.stringify(user, null, 4);
+
+  const onMenuClick = ({ key }) => {
+    console.log(key);
+    switch (key) {
+      case logout:
+        logout();
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const menu = (
+    <Menu>
+      {/* <Menu.ItemGroup title="Item 1"> */}
+      <Menu.Item key="setting:1">Option 1</Menu.Item>
+      <Menu.Item key="setting:2">Option 2</Menu.Item>
+      {/* </Menu.ItemGroup>
+      <Menu.ItemGroup title="Item 2"> */}
+      <Menu.Item key="setting:3">Option 3</Menu.Item>
+      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
+        Logout
+      </Menu.Item>
+      {/* </Menu.ItemGroup> */}
+    </Menu>
+  );
+
+  const shape =
+    user.picture && user.picture.shape !== "initials" && user.picture.shape;
+  const src =
+    user.picture && user.picture.shape !== "initials" && user.picture.url;
+
   return (
     <React.Fragment>
       <Row>
@@ -22,30 +55,20 @@ const Header = ({ classes }) => {
         </Col>
         <Col span={3}>
           {user && user.firstName && (
-            <Row>
-              <Col span={12}>
-                <Avatar
-                  style={{
-                    backgroundColor: ColorList[random(0, 3)],
-                    verticalAlign: "middle",
-                  }}
-                  size="large"
-                  gap={4}
-                >
-                  {user.firstName}
-                </Avatar>
-              </Col>
-              <Col span={12}>
-                <Button
-                  type="link"
-                  size={"small"}
-                  onClick={logout}
-                  icon={<LogoutOutlined />}
-                >
-                  Logout
-                </Button>
-              </Col>
-            </Row>
+            <Dropdown overlay={menu}>
+              <Avatar
+                style={{
+                  backgroundColor: ColorList[random(0, 3)],
+                  verticalAlign: "middle",
+                }}
+                shape={shape}
+                size="large"
+                gap={4}
+                src={src}
+              >
+                {`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}
+              </Avatar>
+            </Dropdown>
           )}
           {user && !user.firstName && (
             <A href={"login"}>

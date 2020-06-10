@@ -1,22 +1,23 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { A } from "hookrouter";
 import { Menu } from "antd";
 import { Styles } from "../theme/Style";
+import { $ReactBaseProps } from "../../types";
 
-const Navigation = ({ classes }) => {
+const Navigation = ({ classes }: $ReactBaseProps) => {
+  const [defaultPage] = useState(window["page"]);
   const menuItems = [
     { text: "Home", href: "/", key: "home" },
-    { text: "Login", href: "login", key: "login" },
-    { text: "badd", href: "badd", key: "badd" },
-    { text: "Profile", href: "profile", key: "profile" },
-    { text: "Logout", href: "logout", key: "logout" },
+    { text: "badd", href: "badd", key: "/badd" },
+    { text: "Profile", href: "profile", key: "/profile" },
+    { text: "Logout", href: "logout", key: "/logout" },
   ];
   return (
     <Menu
       mode="horizontal"
       theme="light"
       id="some"
-      defaultSelectedKeys={["home"]}
+      defaultSelectedKeys={[defaultPage || "home"]}
     >
       {menuItems.map((item) => (
         <Menu.Item key={item.key}>

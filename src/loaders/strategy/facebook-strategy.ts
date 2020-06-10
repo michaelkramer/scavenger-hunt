@@ -11,7 +11,7 @@ export default function facebook() {
       clientID: env.oauth.facebook.clientId,
       clientSecret: env.oauth.facebook.clientSecret,
       callbackURL: "/auth/facebook/callback",
-      profileFields: ["name", "email"],
+      profileFields: ["name", "email", "picture"],
       passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, done) => {
