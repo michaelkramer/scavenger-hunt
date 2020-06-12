@@ -47,6 +47,9 @@ module.exports = {
         hiddenFromHelp: true,
       },
     },
+    db: {
+      scripts: "use `knex migrate:make migration_name -x ts`"
+    },
     /**
      * Transpile your app into javascript
      */
@@ -59,6 +62,10 @@ module.exports = {
     // default: 'nps shell',
     // deploy: 'firebase deploy --only functions',
     // logs: 'firebase functions:log'
+    lint: {
+      script: eslint(`./src/**/*.ts`),
+      hiddenFromHelp: true,
+    },
     /**
      * This creates pretty banner to the terminal
      */
@@ -91,4 +98,8 @@ function banner(name) {
     description: `Shows ${name} banners to the console`,
     script: runFast(`./scripts/banner.ts ${name}`),
   };
+}
+
+function eslint(path) {
+  return `eslint ${path} --format stylish`;
 }

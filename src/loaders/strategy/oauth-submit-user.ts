@@ -1,4 +1,5 @@
 import Backpack from "@michaelkramer/backpack";
+import _ from "lodash";
 import Users from "../../models/Users";
 import UserOauth from "../../models/User-Oauth";
 
@@ -14,6 +15,14 @@ export interface $OauthSubmitUserPayload {
     firstName?: string;
     lastName?: string;
     email?: string;
+    picture?: {
+      data?: {
+        height?: number;
+        is_silhouette?: boolean;
+        url?: string;
+        width?: number;
+      };
+    };
   };
 }
 
@@ -95,7 +104,7 @@ export default async function oauthSubmitUser(
     newUser.email = profile.email;
     newUser.firstName = profile.firstName;
     newUser.lastName = profile.lastName;
-
+    newUser.picture = _.get(profile, "picture.data.url");
     const newUserOauth = new UserOauth();
     newUserOauth.oauthProvider = payload.oauthProvider;
     newUserOauth.providerId = profile.id;

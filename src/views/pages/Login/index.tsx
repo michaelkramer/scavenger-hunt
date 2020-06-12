@@ -5,6 +5,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Styles } from "../../theme/Style";
 import ApiRequest from "../../common/apiRequest";
 
+import { $ReactBaseProps } from "../../../types";
+
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -13,7 +15,7 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const Login = ({ classes }) => {
+const Login = ({ classes }: $ReactBaseProps) => {
   //const { user, dispatch } = useContext(UserProvider.context);
   //console.log("dispatch", dispatch);
   const onFinish = async (values) => {
