@@ -1,10 +1,21 @@
 const { series, rimraf } = require("nps-utils");
+const { description } = require("commander");
 module.exports = {
   scripts: {
     default: "nps start",
     /**
      * Serves the current app and watches for changes to restart it
      */
+    start: {
+      script: series(
+        "nps banner.start",
+        "webpack",
+        "nps transpile",
+        // "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch' 'nodemon --watch src --watch .env'",
+      ),
+      description:
+        "Serves the current app and watches for changes to restart it",
+    },
     serve: {
       // inspector: {
       //   script: series(
@@ -22,20 +33,22 @@ module.exports = {
         // "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch' 'nodemon --watch src --watch .env'",
       ),
       description:
-        "Serves the current app and watches for changes to restart it",
+        "For Back End Developing. Serves the current app and watches for changes to restart it",
     },
     developing: {
       script: series(
-        "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch --info-verbosity verbose' 'nodemon ./src/index.ts web'")
+        "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch --info-verbosity verbose' 'nodemon ./src/index.ts web'"),
+        description: "For Front or Back End Developing. Serves the current app and watches for changes to restart it"
     },
     webpack: {
       script: series("nps banner.webpack",
       `concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch --info-verbosity verbose' '${runFast("./src/index.ts web")}'`
-      )
+      ),
+      description: "For Front End Developing. Serves the current app and watches for changes to restart it"
       //, "webpack --watch --info-verbosity verbose"),
     },
     build: {
-      script: series("nps banner.build",'nps transpile')
+      script: series("nps banner.build","nps transpile")
     },
     clean: {
       default: {
@@ -57,11 +70,6 @@ module.exports = {
       script: `tsc --project ./tsconfig.json`,
       hiddenFromHelp: true,
     },
-    // serve: 'nps "build firebase emulators:start --only functions"',
-    // shell: 'nps "build firebase functions:shell"',
-    // default: 'nps shell',
-    // deploy: 'firebase deploy --only functions',
-    // logs: 'firebase functions:log'
     lint: {
       script: eslint(`./src/**/*.ts`),
       hiddenFromHelp: true,
@@ -71,6 +79,7 @@ module.exports = {
      */
     banner: {
       build: banner("build"),
+      start: banner("start"),
       eval: banner("emulators"),
       serve: banner("serve"),
       testUnit: banner("test.unit"),

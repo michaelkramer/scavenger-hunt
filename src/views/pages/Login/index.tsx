@@ -4,8 +4,8 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Styles } from "../../theme/Style";
 import ApiRequest from "../../common/apiRequest";
-
 import { $ReactBaseProps } from "../../../types";
+import { OAUTH_LOGINS, LOCAL_OAUTH_PATH } from "../../viewConstants";
 
 const layout = {
   labelCol: { span: 8 },
@@ -16,30 +16,22 @@ const tailLayout = {
 };
 
 const Login = ({ classes }: $ReactBaseProps) => {
-  //const { user, dispatch } = useContext(UserProvider.context);
-  //console.log("dispatch", dispatch);
   const onFinish = async (values) => {
-    //makeRequest(values);
-    await ApiRequest("/api/auth/local", {
+    await ApiRequest(LOCAL_OAUTH_PATH, {
       verb: "post",
       params: values,
     });
     navigate("/");
-    //console.log("Success:", values, status, response);
   };
 
-  const loginOptions = [
-    { title: "Facebook", link: "/auth/facebook" },
-    { title: "Goodreads", link: "/auth/goodreads" },
-  ];
   return (
     <div>
       <h3>Login</h3>
       <div>
         <ul>
-          {loginOptions.map((option, idx) => (
+          {OAUTH_LOGINS.map((option, idx) => (
             <li key={idx}>
-              <a href={option.link}>Login with {option.title}</a>
+              <a href={option.path}>Login with {option.name}</a>
             </li>
           ))}
         </ul>

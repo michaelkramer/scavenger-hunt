@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, Button, Input, Col, Row, Avatar } from "antd";
+import { Form, Button, Input, Typography } from "antd";
 import { FacebookOutlined } from "@ant-design/icons";
 import { random } from "lodash";
 import classNames from "classnames";
@@ -28,13 +28,10 @@ const validateMessages = {
 
 const Login = (props: $ReactBaseProps) => {
   const { user, updateUser } = useContext(UserProvider.context);
-  const onFinish = (values) => {
-    console.log(values);
-  };
 
   return (
     <div>
-      <h3>Profile</h3>
+      <Typography.Title level={2}>Profile</Typography.Title>
       <div>
         <Form
           {...layout}
@@ -66,7 +63,7 @@ const Login = (props: $ReactBaseProps) => {
           </Form.Item>
         </Form>
       </div>
-      <EditAvatar {...props} />
+      <EditAvatar />
       <ConnectedAccounts userOauths={user.userOauths} {...props} />
     </div>
   );
@@ -87,18 +84,7 @@ const styles = (_theme) => ({
     display: "flex",
     alignItems: "center",
   },
-  box: {
-    border: "1px solid #d9d9d9",
-    borderRadius: "2px",
-    padding: "25px",
-  },
-  spacing: {
-    padding: "0 15px",
-  },
-  avatarWrapper: {
-    textAlign: "center",
-    marginBottom: "15px",
-  },
+
   // formLabel: {
   //   textAlign: "right",
   //   "& > label::after": {

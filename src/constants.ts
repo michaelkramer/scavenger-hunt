@@ -4,4 +4,4 @@
  * ***************************
  */
 
-export const PICTURE_PROVIDERS: Array<string> = ["facebook"];
+export const PICTURE_PROVIDERS: Array<string> = ["facebook", "google"];

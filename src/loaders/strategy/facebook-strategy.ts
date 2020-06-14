@@ -26,6 +26,7 @@ export default function facebook() {
             email: profile._json.email,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
+            picture: profile.picture.data.url,
           },
         },
         done

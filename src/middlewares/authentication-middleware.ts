@@ -1,6 +1,4 @@
 const authenticationMiddleware = (req, res, next) => {
-  console.log("==> isAuthenticated", req.isAuthenticated());
-  console.log("==> authMiddle user", req.user);
   if (req.isAuthenticated()) {
     return next();
   }

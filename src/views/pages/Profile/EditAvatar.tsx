@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Radio, Button, Col, Row, Avatar } from "antd";
-import { FacebookOutlined } from "@ant-design/icons";
-import { random } from "lodash";
+import { Radio, Button, Col, Row, Avatar, Typography } from "antd";
+import { random, startCase } from "lodash";
+import { Styles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
 import { $ReactBaseProps } from "../../../types";
+import { AVATAR_IMPORT_PROVIDERS } from "../../viewConstants";
 
 const EditAvatar = ({ classes }: $ReactBaseProps) => {
   const { user, putPictureData, updateUser } = useContext(UserProvider.context);
@@ -17,7 +18,7 @@ const EditAvatar = ({ classes }: $ReactBaseProps) => {
 
   return (
     <React.Fragment>
-      <h3>Avatar</h3>
+      <Typography.Title level={3}>Avatar</Typography.Title>
       <div>
         {user && (
           <Row>
@@ -94,8 +95,17 @@ const EditAvatar = ({ classes }: $ReactBaseProps) => {
                   </Col>
                 </Row>
               </Radio.Group>
-              <div style={{ textAlign: "right", width: "100%" }}>
-                <Button onClick={putPictureData}>Update From Facebook</Button>
+              <div className={classes.paddingT}>
+                <Typography.Title level={4}>Import From</Typography.Title>
+                <Row gutter={[16, 16]}>
+                  {AVATAR_IMPORT_PROVIDERS.map((provider) => (
+                    <Col key={provider}>
+                      <Button onClick={() => putPictureData(provider)}>
+                        {startCase(provider)}
+                      </Button>
+                    </Col>
+                  ))}
+                </Row>
               </div>
             </Col>
           </Row>
@@ -105,4 +115,30 @@ const EditAvatar = ({ classes }: $ReactBaseProps) => {
   );
 };
 
-export default EditAvatar;
+const styles = (_theme) => ({
+  box: {
+    border: "1px solid #d9d9d9",
+    borderRadius: "2px",
+    padding: "25px",
+  },
+  spacing: {
+    padding: "0 15px",
+  },
+  paddingT: {
+    paddingTop: "25px",
+  },
+  avatarWrapper: {
+    textAlign: "center",
+    marginBottom: "15px",
+  },
+  // formLabel: {
+  //   textAlign: "right",
+  //   "& > label::after": {
+  //     content: "':'",
+  //     position: "relative",
+  //     top: "-0.5px",
+  //     margin: "0 8px 0 2px",
+  //   },
+  // },
+});
+export default Styles(styles)(EditAvatar);

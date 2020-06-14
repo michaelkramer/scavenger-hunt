@@ -1,46 +1,23 @@
-import React, { useContext } from "react";
+import React from "react";
 import find from "lodash/find";
-import { Form, Button, Input, Col, Row } from "antd";
-import { FacebookOutlined, TwitterOutlined } from "@ant-design/icons";
+import { Typography, Button, Col, Row } from "antd";
 import classNames from "classnames";
-import { any } from "prop-types";
+import SocialMediaLabel from "../../common/socialMedia/Label";
 import { $ReactBaseProps } from "../../../types";
+import { OAUTH_LOGINS } from "../../viewConstants";
 
 interface $Props extends $ReactBaseProps {
   userOauths: any;
 }
 
-const providers = ["facebook", "twitter"];
-
-const providerLabel = (name: string) => {
-  switch (name) {
-    case "facebook":
-      return (
-        <label>
-          <FacebookOutlined />
-          &nbsp;&nbsp;Facebook
-        </label>
-      );
-    case "twitter":
-      return (
-        <label>
-          <TwitterOutlined />
-          &nbsp;&nbsp;Twitter
-        </label>
-      );
-    default:
-      return name;
-  }
-};
-
 const ConnectedAccounts = ({ classes, userOauths }: $Props) => {
   return (
     <React.Fragment>
-      <h3>Connected Accounts</h3>
-      {providers.map((provider, idx) => {
+      <Typography.Title level={3}>Connected Accounts</Typography.Title>
+      {OAUTH_LOGINS.map((provider, idx) => {
         const userProvider = find(
           userOauths,
-          (item) => item.oauthProvider === provider
+          (item) => item.oauthProvider === provider.name
         );
         return (
           <Row key={idx} className={classes.rowSpacing}>
@@ -48,7 +25,7 @@ const ConnectedAccounts = ({ classes, userOauths }: $Props) => {
               span="8"
               className={classNames("ant-form-item-label", classes.formLabel)}
             >
-              {providerLabel(provider)}
+              {SocialMediaLabel[provider.name]}
             </Col>
             <Col span="16" className={classes.leftSideValues}>
               {(userProvider && "Connected") || <Button>Connect</Button>}

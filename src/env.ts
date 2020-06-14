@@ -54,6 +54,10 @@ type $ENV = {
       appKey: string;
       appSecret: string;
     };
+    google: {
+      clientId: string;
+      clientSecret: string;
+    };
   };
 };
 
@@ -70,7 +74,7 @@ const envPath = path.join(
   process.cwd(),
   `.env${process.env.NODE_ENV === "test" ? ".test" : ""}`
 );
-console.log(envPath);
+
 dotenv.config({
   path: envPath,
 });
@@ -125,6 +129,10 @@ const env = {
     facebook: {
       clientId: getOsEnv("FACEBOOK_ID"),
       clientSecret: getOsEnv("FACEBOOK_SECRET"),
+    },
+    google: {
+      clientId: getOsEnv("GOOGLE_ID"),
+      clientSecret: getOsEnv("GOOGLE_SECRET"),
     },
     goodreads: {
       appKey: getOsEnv("GOODREADS_KEY"),

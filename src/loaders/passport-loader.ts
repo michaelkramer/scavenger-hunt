@@ -1,6 +1,4 @@
 import passport from "passport";
-//import { Strategy as FacebookStrategy } from "passport-facebook";
-//import { env } from "../env";
 import { MicroframeworkLoader, MicroframeworkSettings } from "microframework";
 // import { Container } from "typedi";
 // import { UserOauthService } from "../database/services/UserOauthService";
@@ -9,6 +7,7 @@ import { MicroframeworkLoader, MicroframeworkSettings } from "microframework";
 // import { UserOauth } from "../database/models/UserOauth";
 import FacebookStrategy from "./strategy/facebook-strategy";
 import GoodReadsStrategy from "./strategy/goodreads-strategy";
+import GoogleStrategy from "./strategy/google-strategy";
 import LocalStrategy from "./strategy/local-strategy";
 //import { UserOauthRepository } from "../database/repositories/UserOauthRepository";
 //import { env } from "../env";
@@ -30,6 +29,7 @@ const passportLoader: MicroframeworkLoader = (
     });
     passport.use(FacebookStrategy());
     passport.use(GoodReadsStrategy());
+    passport.use(GoogleStrategy());
     passport.use(LocalStrategy());
     // Initialize Passport and restore authentication state, if any, from the
     // session.
