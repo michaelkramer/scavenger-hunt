@@ -1,12 +1,5 @@
-import React, {
-  createContext,
-  useEffect,
-  useRef,
-  useReducer,
-  useState,
-} from "react";
-
-import isEmpty from "lodash/isEmpty";
+import React, { createContext, useEffect, useRef, useState } from "react";
+import { LOGOUT_PATH, USER_PATH } from "../viewConstants";
 import ApiRequest from "../common/apiRequest";
 
 interface $Props {
@@ -32,26 +25,15 @@ const initialState = {
 
 const UserProvider = ({ children }: $Props) => {
   const [user, setUser] = useState({});
-  //const [state, dispatch] = useReducer(reducer, initialState);
-  // const [fetchState, makeRequest] = useApiRequest(FETCHING, "/api/user", {
-  //   verb: "get",
-  // });
-
-  // const [logoutState, logoutRequest] = useApiRequest(FETCHING, "/auth/logout", {
-  //   verb: "get",
-  // });
-
   async function logout() {
-    await ApiRequest("/auth/logout", {
+    await ApiRequest(LOGOUT_PATH, {
       verb: "get",
     });
-    //logoutRequest();
-    //console.log("state", state);
     setUser({});
   }
 
   async function fetchData() {
-    const response = await ApiRequest("/api/user", {
+    const response = await ApiRequest(USER_PATH, {
       verb: "get",
     });
     //const state = await makeRequest();
@@ -66,7 +48,7 @@ const UserProvider = ({ children }: $Props) => {
   }
 
   async function updateUser(user) {
-    const response = await ApiRequest("/api/user", {
+    const response = await ApiRequest(USER_PATH, {
       verb: "put",
       params: user,
     });
@@ -75,10 +57,10 @@ const UserProvider = ({ children }: $Props) => {
     }
   }
 
-  async function putPictureData() {
-    const response = await ApiRequest("/api/user/picture", {
+  async function putPictureData(provider) {
+    const response = await ApiRequest(`${USER_PATH}/picture`, {
       verb: "put",
-      params: { provider: "facebook" },
+      params: { provider },
     });
     if (response.data) {
       setUser(response.data);

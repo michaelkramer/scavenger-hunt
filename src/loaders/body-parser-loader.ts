@@ -11,7 +11,7 @@ const bodyParserLoader: MicroframeworkLoader = (
     const expressApp = settings.getData("express_app");
 
     expressApp.use(bodyParser.json());
-    expressApp.use(bodyParser.urlencoded());
+    expressApp.use(bodyParser.urlencoded({ extended: true }));
   }
 };
 

@@ -24,7 +24,6 @@ export function routes(app: any) {
 
 async function userHandler(req: any, res: any) {
   const { userId } = req.params;
-  console.log(userId);
   const user = await Users.fetchUser(userId);
   return res.json(user || {});
 }
@@ -51,7 +50,7 @@ async function fetchFacebookProfileHandler(req: any, res: any) {
   const result = await fb.api("/me?fields=picture,email,name");
   if (result && result.error) {
     if (result.error.code === "ETIMEDOUT") {
-      console.log("request timeout");
+      log.info("request timeout");
     } else {
       log.error("FB Error", result);
     }
@@ -79,21 +78,22 @@ async function putUserHandler(req: any, res: any) {
 async function putUserPicture(req: any, res: any) {
   const { provider } = req.body;
   const { id } = req.user;
+
   try {
     if (!Constants.PICTURE_PROVIDERS.includes(provider)) {
       return res.status(404);
     }
     const user = await Users.fetchUser(id);
-
-    const sm = Users.SocialMedia[provider];
+    const sm = Users.SocialMedia.default[provider];
     const result = await sm.fetchProfile(user);
-    const picture = _.get(result, "picture.data.url");
+    const picture = _.get(result, sm.picturePath);
     await Users.Users.query()
       .findById(id)
       .patch({ picture: { url: picture, shape: "circle" } });
     user.picture = { url: picture, shape: "circle" };
     return res.json(user);
   } catch (err) {
+    log.error(err);
     return res.status(500).send(err);
   }
 }

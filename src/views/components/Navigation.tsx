@@ -8,9 +8,7 @@ const Navigation = ({ classes }: $ReactBaseProps) => {
   const [defaultPage] = useState(window["page"]);
   const menuItems = [
     { text: "Home", href: "/", key: "home" },
-    { text: "badd", href: "badd", key: "/badd" },
     { text: "Profile", href: "profile", key: "/profile" },
-    { text: "Logout", href: "logout", key: "/logout" },
   ];
   return (
     <Menu

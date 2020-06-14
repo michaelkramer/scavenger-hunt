@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { A } from "hookrouter";
+import { A, navigate } from "hookrouter";
 import { random, isEmpty } from "lodash";
 
 import PropTypes from "prop-types";
 import { Avatar, Row, Col, Button, Menu, Dropdown } from "antd";
-import { LogoutOutlined, LoginOutlined } from "@ant-design/icons";
+import { LogoutOutlined, LoginOutlined, UserOutlined } from "@ant-design/icons";
 import { Styles } from "../theme/Style";
 import Navigation from "../components/Navigation";
 import UserProvider from "../contexts/UserProvider";
@@ -15,7 +15,6 @@ const Header = ({ classes }) => {
   const text = isEmpty(user) ? "No User" : JSON.stringify(user, null, 4);
 
   const onMenuClick = ({ key }) => {
-    console.log(key);
     switch (key) {
       case logout:
         logout();
@@ -29,12 +28,15 @@ const Header = ({ classes }) => {
   const menu = (
     <Menu>
       {/* <Menu.ItemGroup title="Item 1"> */}
-      <Menu.Item key="setting:1">Option 1</Menu.Item>
-      <Menu.Item key="setting:2">Option 2</Menu.Item>
-      {/* </Menu.ItemGroup>
-      <Menu.ItemGroup title="Item 2"> */}
-      <Menu.Item key="setting:3">Option 3</Menu.Item>
-      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
+      <Menu.Item
+        key="/profile"
+        icon={<UserOutlined />}
+        onClick={() => navigate("/profile")}
+      >
+        Profile
+      </Menu.Item>
+
+      <Menu.Item key="/ogout" icon={<LogoutOutlined />} onClick={logout}>
         Logout
       </Menu.Item>
       {/* </Menu.ItemGroup> */}
