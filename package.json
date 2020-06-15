@@ -1,9 +1,10 @@
 {
-  "name": "functions",
+  "name": "scavenger-hunt",
   "version": "0.0.0",
   "scripts": {
     "start": "nps"
   },
+  "start": "nodemon ./dist/src/index.js web",
   "engines": {
     "node": "10.20.1"
   },
