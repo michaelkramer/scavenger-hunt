@@ -1,5 +1,6 @@
 import { Facebook } from "fb";
 import { google } from "googleapis";
+import refresh from "passport-oauth2-refresh";
 import Backpack from "@michaelkramer/backpack";
 import Users from "models/Users";
 import { $FacebookData } from "../../types";
@@ -24,6 +25,16 @@ const SocialMedia = {
       if (result && result.error) {
         if (result.error.code === "ETIMEDOUT") {
           log.info("request timeout");
+          // } else if (result.error.code === "401") {
+          //   const refreshAttempt = await refresh.requestNewAccessToken(
+          //     "facebook",
+          //     facebookOauth.refreshToken,
+          //     (err, accessToken) => {
+          //       if (err || !accessToken) {
+          //         return log.error("FB Error", result);
+          //       }
+          //     }
+          //   );
         } else {
           log.error("FB Error", result);
         }
