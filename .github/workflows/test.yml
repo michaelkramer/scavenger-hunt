@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install
+        run: yarn install
 
       - name: Setup PostgreSQL
         uses: harmon758/postgresql-action@v1.0.0
