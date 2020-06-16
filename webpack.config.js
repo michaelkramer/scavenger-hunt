@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -46,7 +46,7 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: './public/*[.png|.ico]', to: "../" },
+        { from: "./public/*[.png|.ico]", to: "../" },
       ],
     }),
   ],

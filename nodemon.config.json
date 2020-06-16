@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "ignore": ["test/*", "docs/*", "scripts/*"],
+  "execMap": "node"
+}
