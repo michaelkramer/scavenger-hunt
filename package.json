@@ -9,6 +9,7 @@
   },
   "main": "src/appServer.ts",
   "dependencies": {
+    "@michaelkramer/backpack": "^1.0.22",
     "antd": "^4.3.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
