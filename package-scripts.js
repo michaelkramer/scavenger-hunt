@@ -8,9 +8,10 @@ module.exports = {
      */
     start: {
       script: series(
-        "nps banner.start",
-        "webpack",
-        "nps transpile",
+        //"nps banner.start",
+        "webpack  --info-verbosity verbose",
+        //"nps transpile",
+        "nodemon ./src/index.ts web"
         // "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch' 'nodemon --watch src --watch .env'",
       ),
       description:
@@ -28,7 +29,7 @@ module.exports = {
       // },
       script: series(
         "nps banner.serve",
-        "webpack",
+        "nps webpack",
         `nodemon ./src/index.ts web`,
         // "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch' 'nodemon --watch src --watch .env'",
       ),

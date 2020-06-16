@@ -21,7 +21,7 @@ export function routes(app: Express) {
       if (!user) {
         return res.redirect("/login");
       }
-      req.logIn(user, function (err) {
+      req["logIn"](user, (err) => {
         if (err) {
           return next(err);
         }

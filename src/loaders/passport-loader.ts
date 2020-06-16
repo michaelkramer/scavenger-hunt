@@ -1,5 +1,5 @@
 import passport from "passport";
-import refresh from "passport-oauth2-refresh";
+//import refresh from "passport-oauth2-refresh";
 import { MicroframeworkLoader, MicroframeworkSettings } from "microframework";
 // import { Container } from "typedi";
 // import { UserOauthService } from "../database/services/UserOauthService";
@@ -34,8 +34,8 @@ const passportLoader: MicroframeworkLoader = (
     passport.use(LocalStrategy());
 
     // Refresh Access Token Options
-    refresh.use(FacebookStrategy());
-    refresh.use(GoodReadsStrategy());
+    // refresh.use(FacebookStrategy());
+    // refresh.use(GoodReadsStrategy());
 
     // Initialize Passport and restore authentication state, if any, from the
     // session.
