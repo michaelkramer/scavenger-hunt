@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - dev
 
 jobs:
   test:
@@ -12,26 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: test
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
+      - name: se Node.js ${{ matrix.node-version }}
+      - uses: actions/setup-node@v1
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - uses: actions/setup-node@v1.1.0
-        with:
-          node-version: "10.20.1"
-
+          node-version: ${{ matrix.node-version }}
       - run: yarn install
 
       - name: Setup PostgreSQL
