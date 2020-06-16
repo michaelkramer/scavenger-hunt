@@ -86,7 +86,7 @@
       "dist/*",
       "scripts/*"
     ],
-    "exec": "ts-node --transpile-only",
+    "exec": "ts-node --transpile-only --optimize_for_size --max_old_space_size=460",
     "delay": "2500",
     "watch": [
       "src/*",

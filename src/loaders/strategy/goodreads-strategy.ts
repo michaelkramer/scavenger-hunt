@@ -15,7 +15,7 @@ export default function goodreads() {
       passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, done) => {
-      console.log("==> profile", JSON.stringify(profile, null, "\t"));
+      //console.log("==> profile", JSON.stringify(profile, null, "\t"));
 
       const { displayName } = profile;
       const { firstName, lastName } = Backpack.splitFullName(displayName);
