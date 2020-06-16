@@ -45,10 +45,10 @@ jobs:
         run: echo "::set-env name=ENVIRONMENT::prod"
 
       - name: Configure Heroku
-        run: heroku config:set GIT_HASH=${GITHUB_SHA} GIT_BRANCH=${GITHUB_REF} --app my-app-name-$ENVIRONMENT
+        run: heroku config:set GIT_HASH=${GITHUB_SHA} GIT_BRANCH=${GITHUB_REF} --app michael-kramer-scavenger-hunt
 
       - name: Push to Heroku
-        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/my-app-name-$ENVIRONMENT.git $GITHUB_SHA:master
+        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/michael-kramer-scavenger-hunt.git $GITHUB_SHA:master
 
       - name: Run Database Migrations
-        run: heroku run knex migrate:latest --app my-app-name-$ENVIRONMENT
+        run: heroku run knex migrate:latest --app michael-kramer-scavenger-hunt
