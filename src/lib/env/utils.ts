@@ -1,8 +1,11 @@
 import { join } from "path";
+import Backpack from "@michaelkramer/backpack";
+
+const log = new Backpack.Logger(__filename);
 
 export function getOsEnv(key: string): string {
   if (typeof process.env[key] === "undefined") {
-    console.warn(`Environment variable ${key} is not set.`);
+    log.warn(`Environment variable ${key} is not set.`);
     return "";
   }
 

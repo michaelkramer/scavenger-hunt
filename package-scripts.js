@@ -9,9 +9,9 @@ module.exports = {
     start: {
       script: series(
         //"nps banner.start",
-        "webpack  --info-verbosity verbose",
-        //"nps transpile",
-        "nodemon ./src/index.ts web"
+        "webpack",
+        "nps transpile",
+        "nodemon ./dist/src/index.js web"
         // "concurrently -c 'bgBlue.bold,bgMagenta.bold' -n 'webpack,server' 'webpack --watch' 'nodemon --watch src --watch .env'",
       ),
       description:

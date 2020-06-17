@@ -66,6 +66,7 @@
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^6.0.1",
     "css-loader": "^3.5.3",
+    "dotenv-webpack": "^1.8.0",
     "eslint": "^7.0.0",
     "eslint-plugin-react": "^7.20.0",
     "figlet": "^1.4.0",
@@ -86,7 +87,10 @@
       "dist/*",
       "scripts/*"
     ],
-    "exec": "ts-node --transpile-only --optimize_for_size --max_old_space_size=460",
+    "execMap": {
+      "ts": "ts-node --transpile-only --optimize_for_size --max_old_space_size=460",
+      "js": "node --optimize_for_size --max_old_space_size=460"
+    },
     "delay": "2500",
     "watch": [
       "src/*",

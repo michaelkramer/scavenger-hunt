@@ -12,7 +12,6 @@ const routeLoader: MicroframeworkLoader = (
     const expressApp = settings.getData("express_app");
     // [START routes]
     const filePattern: string = path.resolve(env.app.dirs.controllers);
-
     glob(filePattern, (err, files) => {
       files.forEach((file) => {
         const controller = require(file);

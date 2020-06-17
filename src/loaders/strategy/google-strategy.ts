@@ -3,12 +3,14 @@ import Backpack from "@michaelkramer/backpack";
 import { env } from "../../env";
 import oauthSubmitUser from "./oauth-submit-user";
 
+const log = new Backpack.Logger(__filename);
+
 export default function google() {
   return new GoogleStrategy(
     {
       clientID: env.oauth.google.clientId,
       clientSecret: env.oauth.google.clientSecret,
-      callbackURL: "/auth/google/callback",
+      callbackURL: env.oauth.google.callBack,
       passReqToCallback: true,
     },
     (req, accessToken, refreshToken, params, profile, done) => {
