@@ -10,7 +10,8 @@ export default function facebook() {
     {
       clientID: env.oauth.facebook.clientId,
       clientSecret: env.oauth.facebook.clientSecret,
-      callbackURL: "/auth/facebook/callback",
+      callbackURL:
+        "https://michael-kramer-scavenger-hunt.herokuapp.com/auth/facebook/callback",
       profileFields: ["name", "email", "picture"],
       passReqToCallback: true,
     },
