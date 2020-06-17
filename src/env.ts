@@ -75,9 +75,13 @@ const envPath = path.join(
   `.env${process.env.NODE_ENV === "test" ? ".test" : ""}`
 );
 
-dotenv.config({
-  path: envPath,
-});
+if (process.env.NODE_ENV !== "development") {
+  dotenv.config({
+    path: envPath,
+  });
+} else {
+  dotenv.config();
+}
 
 const html = fs.readFileSync(
   path.join(__dirname, "../dist/public/index.html"),
