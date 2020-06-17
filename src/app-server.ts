@@ -1,5 +1,4 @@
 import { bootstrapMicroframework } from "microframework";
-import _ from "lodash";
 import Backpack from "@michaelkramer/backpack";
 import { banner } from "./lib/banner";
 import expressLoader from "./loaders/express-loader";
@@ -9,9 +8,7 @@ import publicLoader from "./loaders/public-loader";
 import routeLoader from "./loaders/route-loader";
 import passportLoader from "./loaders/passport-loader";
 import bodyParserLoader from "./loaders/body-parser-loader";
-import { env } from "./env";
 const log = new Backpack.Logger(__filename);
-//let expressApp;
 
 export default function appServer() {
   bootstrapMicroframework({
@@ -24,7 +21,6 @@ export default function appServer() {
       // winstonLoader,
       // iocLoader,
       // eventDispatchLoader,
-      // typeormLoader,
       // expressAPILoader,
       expressSessionLoader,
       bodyParserLoader,

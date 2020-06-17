@@ -10,13 +10,11 @@ export default function goodreads() {
     {
       consumerKey: env.oauth.goodreads.appKey,
       consumerSecret: env.oauth.goodreads.appSecret,
-      callbackURL: "/auth/goodreads/callback",
+      callbackURL: env.oauth.goodreads.callBack,
       profileFields: ["name", "email"],
       passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, done) => {
-      //console.log("==> profile", JSON.stringify(profile, null, "\t"));
-
       const { displayName } = profile;
       const { firstName, lastName } = Backpack.splitFullName(displayName);
 

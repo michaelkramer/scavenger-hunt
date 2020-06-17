@@ -47,16 +47,22 @@ type $ENV = {
   };
   oauth: {
     facebook: {
+      enabled: boolean;
       clientId: string;
       clientSecret: string;
+      callBack: string;
     };
     goodreads: {
+      enabled: boolean;
       appKey: string;
       appSecret: string;
+      callBack: string;
     };
     google: {
+      enabled: boolean;
       clientId: string;
       clientSecret: string;
+      callBack: string;
     };
   };
 };
@@ -84,7 +90,7 @@ if (process.env.NODE_ENV !== "development") {
 }
 
 const html = fs.readFileSync(
-  path.join(__dirname, "../dist/public/index.html"),
+  path.join(__dirname, "../public/index.html"),
   "utf8"
 );
 
@@ -131,16 +137,22 @@ const env = {
   },
   oauth: {
     facebook: {
+      enabled: toBool(getOsEnv("FACEBOOK_ENABLED")),
       clientId: getOsEnv("FACEBOOK_ID"),
       clientSecret: getOsEnv("FACEBOOK_SECRET"),
+      callBack: getOsEnv("FACEBOOK_CALLBACK") || "/auth/facebook/callback",
     },
     google: {
+      enabled: toBool(getOsEnv("GOOGLE_ENABLED")),
       clientId: getOsEnv("GOOGLE_ID"),
       clientSecret: getOsEnv("GOOGLE_SECRET"),
+      callBack: getOsEnv("GOOGLE_CALLBACK") || "/auth/google/callback",
     },
     goodreads: {
+      enabled: toBool(getOsEnv("GOODREADS_ENABLED")),
       appKey: getOsEnv("GOODREADS_KEY"),
       appSecret: getOsEnv("GOODREADS_SECRET"),
+      callBack: getOsEnv("GOODREADS_CALLBACK") || "/auth/goodreads/callback",
     },
   },
   html,

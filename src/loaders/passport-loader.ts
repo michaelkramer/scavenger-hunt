@@ -11,7 +11,7 @@ import GoodReadsStrategy from "./strategy/goodreads-strategy";
 import GoogleStrategy from "./strategy/google-strategy";
 import LocalStrategy from "./strategy/local-strategy";
 //import { UserOauthRepository } from "../database/repositories/UserOauthRepository";
-//import { env } from "../env";
+import { env } from "../env";
 //import { UserService } from "database/services/UserService";
 //import { UserOauthService } from "../database/services/UserOauthService";
 
@@ -28,9 +28,16 @@ const passportLoader: MicroframeworkLoader = (
     passport.deserializeUser((obj, cb) => {
       cb(null, obj);
     });
-    passport.use(FacebookStrategy());
-    passport.use(GoodReadsStrategy());
-    passport.use(GoogleStrategy());
+
+    if (env.oauth.facebook.enabled) {
+      passport.use(FacebookStrategy());
+    }
+    if (env.oauth.goodreads.enabled) {
+      passport.use(GoodReadsStrategy());
+    }
+    if (env.oauth.google.enabled) {
+      passport.use(GoogleStrategy());
+    }
     passport.use(LocalStrategy());
 
     // Refresh Access Token Options
