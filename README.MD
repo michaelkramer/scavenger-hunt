@@ -18,5 +18,3 @@ This started off as just learning how to use Knex.js and Objection.js. Now it's 
 - **build** - `nps banner.build && nps transpile`
 - **clean** - Deletes the ./dist folder - `nps banner.clean && nps clean.dist`
 - **db.scripts** - use `knex migrate:make migration_name -x ts`
-
-nothing
