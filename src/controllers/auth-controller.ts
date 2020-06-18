@@ -73,14 +73,16 @@ async function handler(req: any, res: Response) {
 }
 
 async function logoutHandler(req: any, res: Response) {
-  req.logout();
-  req.session.destroy((err) => {
-    if (err)
-      log.error("Error : Failed to destroy the session during logout.", err);
-    req.user = null;
-    //return res.send({ msg: "logged out" });
-    return res.redirect("/");
-  });
+  req.session = null;
+  req.user = null;
+  return res.redirect("/");
+  // req.session.destroy((err) => {
+  //   if (err)
+  //     log.error("Error : Failed to destroy the session during logout.", err);
+  //   req.user = null;
+  //   //return res.send({ msg: "logged out" });
+  //   return res.redirect("/");
+  // });
 }
 // async function loginHandler(req: any, res: Response) {
 //   //const { query } = req;

@@ -4,14 +4,16 @@
  * ***************************
  */
 
+const OAUTH_PROVIDERS = window["oauthProviders"];
+
 const localOauthLogins = [];
 const avatarImportProviders = [];
-if (toBool(process.env.FACEBOOK_ENABLED)) {
+if (OAUTH_PROVIDERS.includes("facebook")) {
   localOauthLogins.push({ name: "facebook", path: "/auth/facebook" });
   avatarImportProviders.push("facebook");
 }
 
-if (toBool(process.env.GOOGLE_ENABLED)) {
+if (OAUTH_PROVIDERS.includes("google")) {
   localOauthLogins.push({ name: "google", path: "/auth/google" });
   avatarImportProviders.push("google");
 }

@@ -31,7 +31,15 @@ const routeLoader: MicroframeworkLoader = (
       ];
 
       if (!_.find(routePaths, (route) => req.path.includes(route))) {
-        const html = env.html.replace("//HERE//", `page='${req.path}';`);
+        const oauthProviders = [];
+        if (env.oauth.facebook.enabled) {
+          oauthProviders.push("'facebook'");
+        }
+        if (env.oauth.google.enabled) {
+          oauthProviders.push("'google'");
+        }
+        const scriptText = `page='${req.path}';oauthProviders=[${oauthProviders}]`;
+        const html = env.html.replace("//HERE//", `${scriptText}`);
         return res.send(html);
       }
       return next();
