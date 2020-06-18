@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Text from "antd/lib/typography/Text";
 import { Styles } from "../theme/Style";

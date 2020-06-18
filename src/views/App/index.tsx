@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { StyleProvider } from "../theme/Style";
 import UserProvider from "../contexts/UserProvider";
 import AppLayout from "../layout";

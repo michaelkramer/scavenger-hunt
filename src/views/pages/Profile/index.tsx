@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
 import { Form, Button, Input, Typography } from "antd";
-import { FacebookOutlined } from "@ant-design/icons";
-import { random } from "lodash";
-import classNames from "classnames";
 import { Styles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
 import ConnectedAccounts from "./ConnectedAccounts";

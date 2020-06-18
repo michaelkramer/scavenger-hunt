@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { A, navigate } from "hookrouter";
-import { random, isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
+import random from "lodash/random";
 
 import PropTypes from "prop-types";
 import { Avatar, Row, Col, Button, Menu, Dropdown } from "antd";
