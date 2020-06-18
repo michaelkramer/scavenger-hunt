@@ -80,7 +80,7 @@
   },
   "private": true,
   "nodemonConfig": {
-    "verbose": true,
+    "verbose": false,
     "ignore": [
       "test/*",
       "docs/*",
@@ -88,14 +88,9 @@
       "scripts/*"
     ],
     "execMap": {
-      "ts": "ts-node --transpile-only --optimize_for_size --max_old_space_size=460",
-      "js": "node --optimize_for_size --max_old_space_size=460"
+      "ts": "ts-node --transpile-only --optimize_for_size --max_old_space_size=460 --gc_interval=100",
+      "js": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100"
     },
-    "delay": "2500",
-    "watch": [
-      "src/*",
-      ".env"
-    ],
     "ext": "js,json,ts,tsx"
   }
 }
