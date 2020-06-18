@@ -1,5 +1,5 @@
 import { MicroframeworkLoader, MicroframeworkSettings } from "microframework";
-const session = require("express-session");
+const session = require("cookie-session");
 
 const expressSessionLoader: MicroframeworkLoader = (
   settings: MicroframeworkSettings | undefined
