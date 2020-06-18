@@ -1,5 +1,4 @@
 const path = require("path");
-const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
@@ -50,7 +49,6 @@ module.exports = {
         { from: "./public/*[.png|.ico]", to: "../" },
       ],
     }),
-    new Dotenv()
   ],
   bail: true,
   // Some libraries import Node modules but don't use them in the browser.
