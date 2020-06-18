@@ -90,7 +90,7 @@ if (process.env.NODE_ENV !== "development") {
 }
 
 const html = fs.readFileSync(
-  path.join(__dirname, "../public/index.html"),
+  path.join(__dirname, "../dist/public/index.html"),
   "utf8"
 );
 

@@ -16,13 +16,13 @@ const publicLoader: MicroframeworkLoader = (
     expressApp
       // Serve static files like images from the public folder
       .use(
-        express.static(path.join(__dirname, "../../", "public"), {
+        express.static(path.join(__dirname, "../../dist", "public"), {
           //maxAge: 31557600000,
         })
       );
     // A favicon is a visual cue that client software, like browsers, use to identify a site
     expressApp.use(
-      favicon(path.join(__dirname, "../../", "public", "favicon.ico"))
+      favicon(path.join(__dirname, "../../dist", "public", "favicon.ico"))
     );
   }
 };
