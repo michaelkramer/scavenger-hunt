@@ -1,6 +1,5 @@
 import { Model } from "objection";
 import Backpack from "@michaelkramer/backpack";
-import path from "path";
 import Users from "./Users";
 const log = new Backpack.Logger(__filename);
 
@@ -38,11 +37,8 @@ export default class UserOauth extends Model {
   };
 
   static relationMappings = () => ({
-    //const Users = path.join(__dirname, "Users");
-
     user: {
       relation: Model.BelongsToOneRelation,
-      //modelClass: path.join(__dirname, "Users"),
       modelClass: Users,
       join: {
         from: "user_oauth.user_id",
@@ -50,18 +46,4 @@ export default class UserOauth extends Model {
       },
     },
   });
-  // static get relationMappings() {
-  //   //const Users = path.join(__dirname, "Users");
-  //   return {
-  //     user: {
-  //       relation: Model.BelongsToOneRelation,
-  //       //modelClass: path.join(__dirname, "Users"),
-  //       modelClass: Users,
-  //       join: {
-  //         from: "user_oauth.user_id",
-  //         to: "users.id",
-  //       },
-  //     },
-  //   };
-  // }
 }

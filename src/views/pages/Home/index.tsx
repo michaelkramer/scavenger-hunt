@@ -33,4 +33,7 @@ const styles = (_theme) => ({
     padding: "20px",
   },
 });
-export default Styles(styles)(Home);
+const component = Styles(styles)(Home);
+component.displayName = "Home";
+
+export default component;

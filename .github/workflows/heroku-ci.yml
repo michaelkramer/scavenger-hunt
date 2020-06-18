@@ -53,3 +53,6 @@ jobs:
 
       - name: Run Database Migrations
         run: heroku run knex migrate:latest --app ${HEROKU_APP_NAME}
+
+      - name: Run Database Seed
+      run: heroku run knex seed:run --app ${HEROKU_APP_NAME}
