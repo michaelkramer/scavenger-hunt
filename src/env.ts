@@ -81,12 +81,10 @@ const envPath = path.join(
   `.env${process.env.NODE_ENV === "test" ? ".test" : ""}`
 );
 
-if (process.env.NODE_ENV !== "development") {
+if (process.env.NODE_ENV !== "production") {
   dotenv.config({
     path: envPath,
   });
-} else {
-  dotenv.config();
 }
 
 const html = fs.readFileSync(
