@@ -3,6 +3,7 @@ import { knexSnakeCaseMappers, Model } from "objection";
 import { env } from "./env";
 import appServer from "./app-server";
 import program from "commander";
+import startWorkerServer from "./workers";
 
 const log = new Backpack.Logger(__filename);
 
@@ -10,6 +11,14 @@ program
   .command("web")
   .description("start a web server")
   .action(async () => await appServer());
+
+program
+  .command("worker")
+  .description("start workers server")
+  .action(async () => {
+    console.log("starting");
+    await startWorkerServer();
+  });
 
 (async () => {
   try {
