@@ -109,4 +109,8 @@ const styles = (_theme) => ({
   padding: { padding: "0 4px" },
   formBox: { width: "400px" },
 });
-export default Styles(styles)(Login);
+
+const component = Styles(styles)(Login);
+component.displayName = "Login";
+
+export default component;

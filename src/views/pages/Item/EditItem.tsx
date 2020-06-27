@@ -1,59 +1,72 @@
 import React, { useContext, useEffect } from "react";
-import { Form, Button, Input, Typography } from "antd";
+import { navigate } from "hookrouter";
+import { Form, Button, Input, Typography, Select } from "antd";
+import assign from "lodash/assign";
 import { Styles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
-import ConnectedAccounts from "./ConnectedAccounts";
-import EditAvatar from "./EditAvatar";
-
+import ApiRequest from "../../common/apiRequest";
+import EditableTagGroup from "./EditableTagGroup";
+import SelectTag from "./SelectTag";
 import { $ReactBaseProps } from "../../../types";
+
+interface $EditProps extends $ReactBaseProps {
+  id?: string;
+  values?: Object;
+}
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const validateMessages = {
-  required: "${label} is required!",
-  types: {
-    email: "${label} is not validate email!",
-    number: "${label} is not a validate number!",
-  },
-  number: {
-    range: "${label} must be between ${min} and ${max}",
-  },
-};
-
-const Profile = (props: $ReactBaseProps) => {
+const EditItem: React.FC<$EditProps> = ({ id, values }: $EditProps) => {
   const [form] = Form.useForm();
-  const { user, updateUser } = useContext(UserProvider.context);
-  useEffect(() => form.resetFields(), [user]);
+  const { user } = useContext(UserProvider.context);
+
+  const onFinish = async (values) => {
+    const { data } = await ApiRequest("/api/items", {
+      verb: id ? "put" : "post",
+      params: values,
+    });
+
+    if (data && data.id !== id) {
+      navigate(`/item/${data.id}`);
+    }
+  };
+
+  useEffect(() => form.resetFields(), [values]);
+
   return (
     <div>
-      <Typography.Title level={2}>Profile</Typography.Title>
+      <Typography.Title level={2}>Item</Typography.Title>
       <div>
         <Form
           {...layout}
           form={form}
-          onFinish={updateUser}
-          validateMessages={validateMessages}
-          initialValues={user}
+          onFinish={onFinish}
+          initialValues={values}
         >
+          <Form.Item name={"id"}>
+            <Input type="hidden" />
+          </Form.Item>
           <Form.Item
-            name={"firstName"}
-            label="First Name"
+            //initialValue={values && values.name}
+            name={"name"}
+            label="Name"
             rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            name={"lastName"}
-            label="Last Name"
+            //initialValue={values && values.description}
+            name={"description"}
+            label="Description"
             rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item name={"email"} label="Email" rules={[{ type: "email" }]}>
-            <Input />
+          <Form.Item name={"tags"} label="Tags">
+            <SelectTag />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
@@ -62,8 +75,6 @@ const Profile = (props: $ReactBaseProps) => {
           </Form.Item>
         </Form>
       </div>
-      <EditAvatar />
-      <ConnectedAccounts userOauths={user.userOauths} {...props} />
     </div>
   );
 };
@@ -94,8 +105,4 @@ const styles = (_theme) => ({
   //   },
   // },
 });
-
-const component = Styles(styles)(Profile);
-component.displayName = "Profile";
-
-export default component;
+export default Styles(styles)(EditItem);

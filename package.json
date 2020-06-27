@@ -42,6 +42,7 @@
     "passport-oauth2-refresh": "^2.0.0",
     "pg": "^8.2.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-jss": "^10.1.1",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-syntax-jsx": "^7.8.3",
     "@babel/plugin-transform-react-display-name": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
