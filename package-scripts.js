@@ -48,6 +48,16 @@ module.exports = {
       description: "For Front End Developing. Serves the current app and watches for changes to restart it"
       //, "webpack --watch --info-verbosity verbose"),
     },
+    workers: {
+      script: series(
+        "nps banner.workers",
+        runFast("./src/index.ts worker"),
+      ),
+      description: "Running the workers service"
+    },
+    custom: {
+      script: "nodemon --watch src/workers/import-into-tags/*.ts src/workers/import-into-tags/index.ts"
+    },
     build: {
       script: series("nps banner.build","nps transpile")
     },
@@ -93,6 +103,7 @@ module.exports = {
       generate: banner("db.generate"),
       new: banner("db.new"),
       webpack: banner("webpack"),
+      workers: banner("workers")
     },
   }
 };
