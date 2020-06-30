@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { navigate } from "hookrouter";
-import { Form, Button, Input, Typography, Select } from "antd";
+import { Form, Button, Input, Typography, message } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import assign from "lodash/assign";
 import { Styles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
@@ -19,7 +20,11 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const EditItem: React.FC<$EditProps> = ({ id, values }: $EditProps) => {
+const EditItem: React.FC<$EditProps> = ({
+  id,
+  values,
+  classes,
+}: $EditProps) => {
   const [form] = Form.useForm();
   const { user } = useContext(UserProvider.context);
 
@@ -32,12 +37,18 @@ const EditItem: React.FC<$EditProps> = ({ id, values }: $EditProps) => {
     if (data && data.id !== id) {
       navigate(`/item/${data.id}`);
     }
+    message.success("Saved");
   };
 
   useEffect(() => form.resetFields(), [values]);
 
   return (
     <div>
+      <div className={classes.rightButton}>
+        <Button icon={<MenuOutlined />} onClick={() => navigate("/items")}>
+          Return to List
+        </Button>
+      </div>
       <Typography.Title level={2}>Item</Typography.Title>
       <div>
         <Form
@@ -94,7 +105,9 @@ const styles = (_theme) => ({
     display: "flex",
     alignItems: "center",
   },
-
+  rightButton: {
+    textAlign: "right",
+  },
   // formLabel: {
   //   textAlign: "right",
   //   "& > label::after": {

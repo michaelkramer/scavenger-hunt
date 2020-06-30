@@ -9,7 +9,7 @@ const Navigation = ({ classes }: $ReactBaseProps) => {
   const menuItems = [
     { text: "Home", href: "/", key: "home" },
     { text: "Profile", href: "/profile", key: "/profile" },
-    { text: "Items", href: "/item", key: "/item" },
+    { text: "Items", href: "/items", key: "/items" },
   ];
   return (
     <Menu

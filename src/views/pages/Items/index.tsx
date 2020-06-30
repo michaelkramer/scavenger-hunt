@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useQueryParams } from "hookrouter";
+import { useQueryParams, A, navigate } from "hookrouter";
 import queryString from "query-string";
 import { Table, Tag, Space, Input, Button } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 import ApiRequest from "../../common/apiRequest";
 import { Styles } from "../../theme/Style";
 
-const Item = () => {
+const Item = ({ classes }) => {
   const [queryParams, setQueryParams] = useQueryParams();
   const [items, setItems] = useState();
   //const [searchOption, setSearchOption] = useState();
@@ -91,7 +91,7 @@ const Item = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (text, record) => <A href={`/item/${record.id}`}>{text}</A>,
       ...getColumnSearchProps("name"),
     },
     {
@@ -126,7 +126,11 @@ const Item = () => {
 
   return (
     <div>
-      <div>Filters Here</div>
+      <div className={classes.addButton}>
+        <Button icon={<PlusOutlined />} onClick={() => navigate("/item")}>
+          Add New
+        </Button>
+      </div>
       <Table columns={columns} dataSource={items} rowKey="id" />
     </div>
   );
@@ -140,6 +144,7 @@ const styles = (_theme) => ({
     color: "#f00",
     padding: "20px",
   },
+  addButton: { textAlign: "right", marginBottom: "8px" },
   padding: { padding: "0 4px" },
   formBox: { width: "400px" },
 });
