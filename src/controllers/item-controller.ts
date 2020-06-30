@@ -28,14 +28,14 @@ async function itemsHandler(req, res) {
   if (query.description) {
     sql.where("description", "ilike", `%${query.description}%`);
   }
-  console.log(query);
+
   if (query.tags) {
-    const tags = _.isArray(query.tags) ? query.tags : [query.tags];
+    const tags = _.isArray(query.tags) ? query.tags : query.tags.split(",");
 
     sql.where(
       Backpack.db.mk.raw("LOWER(tags::text)::text[]"),
       "@>",
-      tags.map((tag) => tag.toLowerCase())
+      tags.map((tag) => tag.toLowerCase().trim())
     );
   }
 
