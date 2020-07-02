@@ -10,6 +10,7 @@ interface $Props extends $ReactBaseProps {
 
 const Item: React.FC<$Props> = ({ id }: $Props) => {
   const [values, setValues] = useState();
+  const [tagOptions, setTagOptions] = useState();
 
   async function fetchItem() {
     if (id) {
@@ -18,13 +19,17 @@ const Item: React.FC<$Props> = ({ id }: $Props) => {
         setValues(values.data);
       }
     }
+    const tags = await ApiRequest(`/api/tags`);
+    if (tags.data) {
+      setTagOptions(tags.data);
+    }
   }
 
   useEffect(() => {
     fetchItem();
   }, [id]);
 
-  return <EditItem id={id} values={values} />;
+  return <EditItem id={id} values={values} tagOptions={tagOptions} />;
 };
 
 const styles = (_theme) => ({

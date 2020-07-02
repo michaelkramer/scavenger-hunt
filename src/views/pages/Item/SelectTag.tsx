@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Styles } from "../../theme/Style";
 import { Select } from "antd";
-
-const OPTIONS = ["Apples", "Nails", "Bananas", "Helicopters"];
+import { $TagOption } from "../../../types";
 
 interface $Props {
   value: Array<string>;
+  tagOptions: Array<$TagOption>;
   onChange: Function;
 }
 
@@ -14,7 +14,7 @@ interface InputProps {
   onChange?: (value: Array<string>) => void;
 }
 
-const SelectTag = ({ value, onChange }: $Props) => {
+const SelectTag = ({ value, onChange, tagOptions }: $Props) => {
   const [tags, setTags] = useState(value);
 
   const triggerChange = (changedValue) => {
@@ -28,7 +28,10 @@ const SelectTag = ({ value, onChange }: $Props) => {
     triggerChange({ tags });
   };
 
-  const filteredOptions = OPTIONS; //.filter(o => !tags.includes(o));
+  let filteredOptions = tagOptions || [];
+  filteredOptions =
+    (tags && filteredOptions.filter((o) => !tags.includes(o.title))) ||
+    filteredOptions;
   return (
     <Select
       showSearch
@@ -38,11 +41,12 @@ const SelectTag = ({ value, onChange }: $Props) => {
       onChange={handleChange}
       style={{ width: "100%" }}
     >
-      {filteredOptions.map((item) => (
-        <Select.Option key={item} value={item}>
-          {item}
-        </Select.Option>
-      ))}
+      {filteredOptions &&
+        filteredOptions.map((item) => (
+          <Select.Option key={item.title} value={item.title}>
+            {item.title}
+          </Select.Option>
+        ))}
     </Select>
   );
 };

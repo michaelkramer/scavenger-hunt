@@ -1,6 +1,6 @@
 import { Model } from "objection";
 import Backpack from "@michaelkramer/backpack";
-import Items from "./items";
+import Items from "./Items";
 const log = new Backpack.Logger(__filename);
 
 export default class ItemPair extends Model {

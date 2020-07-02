@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import uniq from "lodash/uniq";
 import { navigate } from "hookrouter";
 import { Form, Button, Input, Typography, message } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
@@ -8,11 +9,12 @@ import UserProvider from "../../contexts/UserProvider";
 import ApiRequest from "../../common/apiRequest";
 import EditableTagGroup from "./EditableTagGroup";
 import SelectTag from "./SelectTag";
-import { $ReactBaseProps } from "../../../types";
+import { $ReactBaseProps, $TagOption } from "../../../types";
 
 interface $EditProps extends $ReactBaseProps {
   id?: string;
   values?: Object;
+  tagOptions?: Array<$TagOption>;
 }
 
 const layout = {
@@ -23,9 +25,11 @@ const layout = {
 const EditItem: React.FC<$EditProps> = ({
   id,
   values,
+  tagOptions,
   classes,
 }: $EditProps) => {
   const [form] = Form.useForm();
+  const [formData, setFormData] = useState(values);
   const { user } = useContext(UserProvider.context);
 
   const onFinish = async (values) => {
@@ -40,7 +44,24 @@ const EditItem: React.FC<$EditProps> = ({
     message.success("Saved");
   };
 
-  useEffect(() => form.resetFields(), [values]);
+  const onValuesChange = (changedValues, allValues) => {
+    if (changedValues["basic"]) {
+      const tags = allValues["tags"] || [];
+      allValues["tags"] = uniq([...tags, ...changedValues["basic"]]);
+      setFormData(allValues);
+    }
+    if (changedValues["tags"]) {
+      const basic = allValues["basic"] || [];
+      const basicOptions = tagOptions.filter((o) => o.category === "basic");
+      const foundBasicInTags = basicOptions.filter((o) =>
+        changedValues["tags"].includes(o.title)
+      );
+      allValues["basic"] = foundBasicInTags.map((o) => o.title);
+      setFormData(allValues);
+    }
+  };
+  useEffect(() => setFormData(values), [values]);
+  useEffect(() => form.resetFields(), [formData]);
 
   return (
     <div>
@@ -55,7 +76,8 @@ const EditItem: React.FC<$EditProps> = ({
           {...layout}
           form={form}
           onFinish={onFinish}
-          initialValues={values}
+          onValuesChange={onValuesChange}
+          initialValues={formData}
         >
           <Form.Item name={"id"}>
             <Input type="hidden" />
@@ -76,8 +98,15 @@ const EditItem: React.FC<$EditProps> = ({
           >
             <Input />
           </Form.Item>
-          <Form.Item name={"tags"} label="Tags">
-            <SelectTag />
+          <Form.Item name={"basic"} label="Bacis">
+            <SelectTag
+              tagOptions={(tagOptions || []).filter(
+                (o) => o.category === "basic"
+              )}
+            />
+          </Form.Item>
+          <Form.Item name={"tags"} label="Tags" shouldUpdate>
+            <SelectTag tagOptions={tagOptions} />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">

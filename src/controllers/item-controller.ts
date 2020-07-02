@@ -3,6 +3,7 @@ import _ from "lodash";
 import { env } from "../env";
 import authenticationMiddleware from "../middlewares/authentication-middleware";
 import Items from "../models/Items";
+import ItemTags from "../models/Item-Tags";
 import * as Constants from "../constants";
 
 const log = new Backpack.Logger(__filename);
@@ -13,6 +14,8 @@ export function routes(app: any) {
 
   app.put("/api/items", authenticationMiddleware, putItemHandler);
   app.post("/api/items", authenticationMiddleware, postItemHandler);
+
+  app.get("/api/tags", authenticationMiddleware, tagsHandler);
 }
 
 async function itemsHandler(req, res) {
@@ -52,9 +55,24 @@ async function itemIdHandler(req, res) {
   return res.send(item);
 }
 
+async function tagsHandler(req, res) {
+  return res.send(await ItemTags.query().orderBy("title"));
+}
 async function putItemHandler(req, res) {
   const { id } = req.user;
-  const payload = _.omitBy(_.assign({}, req.body, { userId: id }), _.isNil);
+  const payload = _.pick(
+    _.omitBy(_.assign({}, req.body, { userId: id }), _.isNil),
+    [
+      "id",
+      "userId",
+      "name",
+      "tags",
+      "description",
+      "itemPairId",
+      "createdAt",
+      "updatedAt",
+    ]
+  );
   if (!payload.tags.length) {
     _.set(payload, "tags", null);
   }
@@ -64,7 +82,19 @@ async function putItemHandler(req, res) {
 
 async function postItemHandler(req, res) {
   const { id } = req.user;
-  const payload = _.omitBy(_.assign({}, req.body, { userId: id }), _.isNil);
+  const payload = _.pick(
+    _.omitBy(_.assign({}, req.body, { userId: id }), _.isNil),
+    [
+      "id",
+      "userId",
+      "name",
+      "tags",
+      "description",
+      "itemPairId",
+      "createdAt",
+      "updatedAt",
+    ]
+  );
   const response = await Items.query().insert(payload);
   return res.send(response);
 }
