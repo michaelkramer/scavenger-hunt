@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Radio, Button, Col, Row, Avatar, Typography } from "antd";
 import random from "lodash/random";
 import startCase from "lodash/startCase";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
 import { $ReactBaseProps } from "../../../types";
 import { AVATAR_IMPORT_PROVIDERS } from "../../viewConstants";
@@ -142,4 +142,4 @@ const styles = (_theme) => ({
   //   },
   // },
 });
-export default Styles(styles)(EditAvatar);
+export default withStyles(styles)(EditAvatar);

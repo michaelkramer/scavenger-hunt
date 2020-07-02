@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ApiRequest from "../../common/apiRequest";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 import EditItem from "./EditItem";
-import { $ReactBaseProps } from "../../../types";
+//import { $ReactBaseProps } from "../../../types";
 
-interface $Props extends $ReactBaseProps {
-  id?: string;
+interface $Props extends React.Props<any> {
+  classes: any;
+  id: string;
 }
 
 const Item: React.FC<$Props> = ({ id }: $Props) => {
@@ -27,6 +28,7 @@ const Item: React.FC<$Props> = ({ id }: $Props) => {
 
   useEffect(() => {
     fetchItem();
+    return () => {};
   }, [id]);
 
   return <EditItem id={id} values={values} tagOptions={tagOptions} />;
@@ -44,4 +46,4 @@ const styles = (_theme) => ({
   formBox: { width: "400px" },
 });
 
-export default Styles(styles)(Item);
+export default withStyles(styles)(Item);

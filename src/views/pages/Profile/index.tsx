@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Form, Button, Input, Typography } from "antd";
-import { Styles } from "../../theme/Style";
+import isEmpty from "lodash/isEmpty";
+import { withStyles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
 import ConnectedAccounts from "./ConnectedAccounts";
 import EditAvatar from "./EditAvatar";
@@ -25,8 +26,16 @@ const validateMessages = {
 
 const Profile = (props: $ReactBaseProps) => {
   const [form] = Form.useForm();
-  const { user, updateUser } = useContext(UserProvider.context);
+  const { user, updateUser, isAuth } = useContext(UserProvider.context);
   useEffect(() => form.resetFields(), [user]);
+
+  if (isEmpty(user)) {
+    return (
+      <div>
+        No Logged in<Form {...layout} form={form}></Form>
+      </div>
+    );
+  }
   return (
     <div>
       <Typography.Title level={2}>Profile</Typography.Title>
@@ -95,7 +104,7 @@ const styles = (_theme) => ({
   // },
 });
 
-const component = Styles(styles)(Profile);
+const component = withStyles(styles)(Profile);
 component.displayName = "Profile";
 
 export default component;

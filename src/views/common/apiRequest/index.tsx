@@ -2,10 +2,11 @@ import axios from "axios";
 async function ApiRequest(endpoint, { verb = "get", params = {} } = {}) {
   //console.log(verb, reqParams);
   try {
-    return await axios[verb](endpoint, params);
+    let response = await axios[verb](endpoint, params);
+    return response;
   } catch (e) {
-    console.log(e);
-    return e;
+    //console.log(e);
+    return { failedLogin: true };
   }
 }
 

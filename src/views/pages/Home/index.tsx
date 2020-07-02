@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import UserProvider from "../../contexts/UserProvider";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 import { $ReactBaseProps } from "../../../types";
 
 const LoginMsg =
@@ -15,11 +15,15 @@ const Home = ({ classes }: $ReactBaseProps) => {
   return (
     <div>
       <h3>Home</h3>
-      <div>{text}</div>
       <div>
+        This site is to search items on Ebay but I would like you to login
+        first.
+      </div>
+      <div>{text}</div>
+      {/* <div>
         User,
         <pre>{JSON.stringify(user, null, 4) || "No User Data"}</pre>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -33,7 +37,7 @@ const styles = (_theme) => ({
     padding: "20px",
   },
 });
-const component = Styles(styles)(Home);
+const component = withStyles(styles)(Home);
 component.displayName = "Home";
 
 export default component;

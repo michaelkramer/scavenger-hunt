@@ -1,20 +1,18 @@
 import React, { createContext } from "react";
-import withStyles from "react-jss";
+import withReactwithStyles from "react-jss";
 import { themeConfig } from "./theme";
 
 const context = createContext(null);
 
-const StyleProvider = ({ children }) => {
-  return (
-    <context.Provider value={{ theme: themeConfig }}>
-      {children}
-    </context.Provider>
-  );
-};
+const StyleProvider = ({ children }: { children: any }) => (
+  <context.Provider value={{ theme: themeConfig }}>{children}</context.Provider>
+);
 
 StyleProvider.context = context;
 
-const Styles = (styles) => (Component) =>
-  withStyles(styles(themeConfig))(Component);
+const withStyles = (styles) => (Component) =>
+  withReactwithStyles(styles(themeConfig))(Component);
 
-export { Styles, StyleProvider };
+const Theme = themeConfig;
+
+export { withStyles, StyleProvider, Theme };

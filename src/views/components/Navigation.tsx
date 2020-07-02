@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { A } from "hookrouter";
 import { Menu } from "antd";
-import { Styles } from "../theme/Style";
+import isEmpty from "lodash/isEmpty";
+import UserProvider from "../contexts/UserProvider";
+import { withStyles } from "../theme/Style";
 import { $ReactBaseProps } from "../../types";
 
 const Navigation = ({ classes }: $ReactBaseProps) => {
-  const [defaultPage] = useState(window["page"]);
-  const menuItems = [
-    { text: "Home", href: "/", key: "home" },
-    { text: "Profile", href: "/profile", key: "/profile" },
-    { text: "Items", href: "/items", key: "/items" },
-  ];
+  const [defaultPage, setDefaultPage] = useState("/");
+  const [menu, setMenu] = useState([{ text: "Home", href: "/", key: "home" }]);
+  const { user } = useContext(UserProvider.context);
+  const menuItems = [{ text: "Home", href: "/", key: "home" }];
+
+  useEffect(() => {
+    if (!isEmpty(user)) {
+      menuItems.push(
+        { text: "Profile", href: "/profile", key: "/profile" },
+        { text: "Items", href: "/items", key: "/items" },
+        {
+          text: "Search",
+          href: "/ebay-search",
+          key: "/ebay-search",
+        },
+        { text: "Admin", href: "/admin", key: "/admin" }
+      );
+      setMenu(menuItems);
+    }
+    setDefaultPage(window["page"]);
+    return () => {};
+  }, [user]);
+
   return (
     <Menu
       mode="horizontal"
@@ -18,7 +37,7 @@ const Navigation = ({ classes }: $ReactBaseProps) => {
       id="some"
       defaultSelectedKeys={[defaultPage || "home"]}
     >
-      {menuItems.map((item) => (
+      {menu.map((item) => (
         <Menu.Item key={item.key}>
           <A href={item.href}>{item.text}</A>
         </Menu.Item>
@@ -36,4 +55,4 @@ const styles = (_theme) => ({
     padding: "20px",
   },
 });
-export default Styles(styles)(Navigation);
+export default withStyles(styles)(Navigation);

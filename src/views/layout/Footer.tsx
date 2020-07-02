@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Text from "antd/lib/typography/Text";
-import { Styles } from "../theme/Style";
+import { withStyles } from "../theme/Style";
 
 const Footer = ({ classes }) => {
   return <Text>This is the footer</Text>;
@@ -12,4 +12,4 @@ Footer.propTypes = {
 };
 
 const styles = (_theme) => ({});
-export default Styles(styles)(Footer);
+export default withStyles(styles)(Footer);

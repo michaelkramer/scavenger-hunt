@@ -2,7 +2,7 @@ import React from "react";
 import { navigate } from "hookrouter";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 import ApiRequest from "../../common/apiRequest";
 import { $ReactBaseProps } from "../../../types";
 import { OAUTH_LOGINS, LOCAL_OAUTH_PATH } from "../../viewConstants";
@@ -110,7 +110,7 @@ const styles = (_theme) => ({
   formBox: { width: "400px" },
 });
 
-const component = Styles(styles)(Login);
+const component = withStyles(styles)(Login);
 component.displayName = "Login";
 
 export default component;

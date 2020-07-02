@@ -2,7 +2,7 @@ const authenticationMiddleware = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  return res.json("Not allowed");
+  return res.status(401).send();
 };
 
 export default authenticationMiddleware;

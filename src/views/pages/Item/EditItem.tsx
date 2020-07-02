@@ -4,7 +4,7 @@ import { navigate } from "hookrouter";
 import { Form, Button, Input, Typography, message } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import assign from "lodash/assign";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 import UserProvider from "../../contexts/UserProvider";
 import ApiRequest from "../../common/apiRequest";
 import EditableTagGroup from "./EditableTagGroup";
@@ -12,7 +12,7 @@ import SelectTag from "./SelectTag";
 import { $ReactBaseProps, $TagOption } from "../../../types";
 
 interface $EditProps extends $ReactBaseProps {
-  id?: string;
+  id: string;
   values?: Object;
   tagOptions?: Array<$TagOption>;
 }
@@ -147,4 +147,4 @@ const styles = (_theme) => ({
   //   },
   // },
 });
-export default Styles(styles)(EditItem);
+export default withStyles(styles)(EditItem);

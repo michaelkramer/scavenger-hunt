@@ -4,7 +4,7 @@ import queryString from "query-string";
 import { Table, Tag, Space, Input, Button } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 import ApiRequest from "../../common/apiRequest";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 
 const Item = ({ classes }) => {
   const [queryParams, setQueryParams] = useQueryParams();
@@ -145,4 +145,4 @@ const styles = (_theme) => ({
   formBox: { width: "400px" },
 });
 
-export default Styles(styles)(Item);
+export default withStyles(styles)(Item);

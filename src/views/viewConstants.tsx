@@ -27,6 +27,8 @@ export const LOCAL_OAUTH_PATH = "/api/auth/local";
 
 export const OAUTH_LOGINS = localOauthLogins;
 
+export const EBAY_SEARCH_PATH = "/api/ebay-search";
+
 function toBool(value: string): boolean {
   return value === "true";
 }

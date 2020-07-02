@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRoutes } from "hookrouter";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { Layout } from "antd";
-import { Styles, StyleProvider } from "../theme/Style";
+import { withStyles, StyleProvider } from "../theme/Style";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import routes from "../router";
+import Routes from "../router";
 import UserProvider from "../contexts/UserProvider";
 import PageNotFound from "../components/PageNotFound";
 
 const AppLayout = ({ classes }) => {
   const { Content } = Layout;
-  const routeResult = useRoutes(routes);
+  //const { user } = useContext(UserProvider.context);
+  const routeResult = useRoutes(Routes.routesAuthorized);
   const { theme } = React.useContext(StyleProvider.context);
   return (
     <Layout>
@@ -53,4 +54,4 @@ const styles = (_theme) => ({
     marginTop: "50px",
   },
 });
-export default Styles(styles)(AppLayout);
+export default withStyles(styles)(AppLayout);

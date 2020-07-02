@@ -6,7 +6,7 @@ import random from "lodash/random";
 import PropTypes from "prop-types";
 import { Avatar, Row, Col, Button, Menu, Dropdown } from "antd";
 import { LogoutOutlined, LoginOutlined, UserOutlined } from "@ant-design/icons";
-import { Styles } from "../theme/Style";
+import { withStyles } from "../theme/Style";
 import Navigation from "../components/Navigation";
 import UserProvider from "../contexts/UserProvider";
 
@@ -44,10 +44,16 @@ const Header = ({ classes }) => {
     </Menu>
   );
 
-  const shape =
-    user.picture && user.picture.shape !== "initials" && user.picture.shape;
-  const src =
-    user.picture && user.picture.shape !== "initials" && user.picture.url;
+  // const shape =
+  //   user &&
+  //   user.picture &&
+  //   user.picture.shape !== "initials" &&
+  //   user.picture.shape;
+  // const src =
+  //   user &&
+  //   user.picture &&
+  //   user.picture.shape !== "initials" &&
+  //   user.picture.url;
 
   return (
     <React.Fragment>
@@ -64,10 +70,18 @@ const Header = ({ classes }) => {
                   backgroundColor: ColorList[random(0, 3)],
                   verticalAlign: "middle",
                 }}
-                shape={shape}
+                shape={
+                  user.picture &&
+                  user.picture.shape !== "initials" &&
+                  user.picture.shape
+                }
                 size="large"
                 gap={4}
-                src={src}
+                src={
+                  user.picture &&
+                  user.picture.shape !== "initials" &&
+                  user.picture.url
+                }
               >
                 {`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}
               </Avatar>
@@ -91,4 +105,4 @@ Header.propTypes = {
 };
 
 const styles = (_theme) => ({});
-export default Styles(styles)(Header);
+export default withStyles(styles)(Header);

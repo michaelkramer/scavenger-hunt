@@ -13,6 +13,7 @@ export default class Users extends Model {
   createdAt!: Date;
   updatedAt?: Date;
   picture?: { url: string; shape: "square" | "circle" };
+  roles?: Array<string>;
 
   userOauths?: UserOauth[];
 
@@ -32,6 +33,9 @@ export default class Users extends Model {
       createdAt: { type: "string" },
       updatedAt: { type: ["string", "null"] },
       picture: { type: ["object", "null"] },
+      roles: {
+        type: ["array", "null"],
+      },
     },
   };
 

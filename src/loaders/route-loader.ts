@@ -29,7 +29,7 @@ const routeLoader: MicroframeworkLoader = (
         "/apple-touch",
         "/auth",
       ];
-
+      // if it's not one of the routePaths than it will use the env.html (public/index.html)
       if (!_.find(routePaths, (route) => req.path.includes(route))) {
         const oauthProviders = [];
         if (env.oauth.facebook.enabled) {

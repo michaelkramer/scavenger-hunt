@@ -1,20 +1,19 @@
 import React from "react";
-import { Styles } from "../../theme/Style";
-import { Tag, Input, Tooltip } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { withStyles } from "../../theme/Style";
+import { Tag, Input, Tooltip } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 class EditableTagGroup extends React.Component {
   state = {
-    tags: ['Unremovable', 'Tag 2', 'Tag 3'],
+    tags: ["Unremovable", "Tag 2", "Tag 3"],
     inputVisible: false,
-    inputValue: '',
+    inputValue: "",
     editInputIndex: -1,
-    editInputValue: '',
+    editInputValue: "",
   };
 
-
-  handleClose = removedTag => {
-    const tags = this.state.tags.filter(tag => tag !== removedTag);
+  handleClose = (removedTag) => {
+    const tags = this.state.tags.filter((tag) => tag !== removedTag);
     console.log(tags);
     this.setState({ tags });
   };
@@ -23,7 +22,7 @@ class EditableTagGroup extends React.Component {
     this.setState({ inputVisible: true }, () => this.input.focus());
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({ inputValue: e.target.value });
   };
 
@@ -37,11 +36,11 @@ class EditableTagGroup extends React.Component {
     this.setState({
       tags,
       inputVisible: false,
-      inputValue: '',
+      inputValue: "",
     });
   };
 
-  handleEditInputChange = e => {
+  handleEditInputChange = (e) => {
     this.setState({ editInputValue: e.target.value });
   };
 
@@ -53,21 +52,27 @@ class EditableTagGroup extends React.Component {
       return {
         tags: newTags,
         editInputIndex: -1,
-        editInputValue: '',
+        editInputValue: "",
       };
     });
   };
 
-  saveInputRef = input => {
+  saveInputRef = (input) => {
     this.input = input;
   };
 
-  saveEditInputRef = input => {
+  saveEditInputRef = (input) => {
     this.editInput = input;
   };
 
   render() {
-    const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
+    const {
+      tags,
+      inputVisible,
+      inputValue,
+      editInputIndex,
+      editInputValue,
+    } = this.state;
     return (
       <>
         {tags.map((tag, index) => {
@@ -96,11 +101,14 @@ class EditableTagGroup extends React.Component {
               onClose={() => this.handleClose(tag)}
             >
               <span
-                onDoubleClick={e => {
+                onDoubleClick={(e) => {
                   if (index !== 0) {
-                    this.setState({ editInputIndex: index, editInputValue: tag }, () => {
-                      this.editInput.focus();
-                    });
+                    this.setState(
+                      { editInputIndex: index, editInputValue: tag },
+                      () => {
+                        this.editInput.focus();
+                      }
+                    );
                     e.preventDefault();
                   }
                 }}
@@ -139,20 +147,18 @@ class EditableTagGroup extends React.Component {
   }
 }
 
-
 const styles = (_theme) => ({
   siteTagPlus: {
-  background: "#fff",
-  borderStyle: "dashed"
-},
-editTag: {
-  userSelect: "none"
-},
-tagInput: {
-  width: "78px",
-  marginRight: "8px",
-  verticalAlign: "top"
-}
-
+    background: "#fff",
+    borderStyle: "dashed",
+  },
+  editTag: {
+    userSelect: "none",
+  },
+  tagInput: {
+    width: "78px",
+    marginRight: "8px",
+    verticalAlign: "top",
+  },
 });
-export default Styles(styles)(EditableTagGroup);
+export default withStyles(styles)(EditableTagGroup);

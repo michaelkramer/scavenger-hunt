@@ -1,5 +1,5 @@
 import React from "react";
-import { Styles } from "../theme/Style";
+import { withStyles } from "../theme/Style";
 import { $ReactBaseProps } from "../../types";
 
 const PageNotFound = ({ classes }: $ReactBaseProps) => {
@@ -15,4 +15,4 @@ const styles = (_theme) => ({
     padding: "20px",
   },
 });
-export default Styles(styles)(PageNotFound);
+export default withStyles(styles)(PageNotFound);

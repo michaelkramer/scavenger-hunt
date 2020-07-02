@@ -152,6 +152,11 @@ const env = {
       appSecret: getOsEnv("GOODREADS_SECRET"),
       callBack: getOsEnv("GOODREADS_CALLBACK") || "/auth/goodreads/callback",
     },
+    ebay: {
+      clientId: getOsEnv("EBAY_CLIENT_ID"),
+      clientSecret: getOsEnv("EBAY_SECRET"),
+      devId: getOsEnv("EBAY_DEV_ID"),
+    },
   },
   html,
 };

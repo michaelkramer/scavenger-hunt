@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Styles } from "../../theme/Style";
+import { withStyles } from "../../theme/Style";
 import { Select } from "antd";
 import { $TagOption } from "../../../types";
 
@@ -65,4 +65,4 @@ const styles = (_theme) => ({
     verticalAlign: "top",
   },
 });
-export default Styles(styles)(SelectTag);
+export default withStyles(styles)(SelectTag);

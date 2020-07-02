@@ -130,6 +130,7 @@ export const themeConfig = {
     iconSize: 20,
   },
   spacing: (x) => x * spacingUnit,
+  gutter: 4 * spacingUnit,
   transitions: {
     duration: {
       complex: 375,
