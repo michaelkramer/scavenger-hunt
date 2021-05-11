@@ -29,7 +29,7 @@
     "googleapis": "^52.1.0",
     "hookrouter": "^1.2.3",
     "knex": "^0.21.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "microframework": "^0.6.4",
     "nodemon": "^2.0.4",
     "nps": "^5.9.12",
